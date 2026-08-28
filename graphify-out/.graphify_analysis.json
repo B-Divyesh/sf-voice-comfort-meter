@@ -1,6 +1,27 @@
 {
   "communities": {
     "0": [
+      "src_main",
+      "src_main_apppage",
+      "src_main_comparison",
+      "src_main_demo",
+      "src_main_demobanner",
+      "src_main_facts",
+      "src_main_infopage",
+      "src_main_landing",
+      "src_main_layout",
+      "src_main_navigate",
+      "src_main_notfound",
+      "src_main_render",
+      "src_main_route",
+      "src_main_savedscroll",
+      "src_main_showupdate",
+      "src_main_take",
+      "src_main_takes",
+      "src_main_title",
+      "src_main_workbench"
+    ],
+    "1": [
       "ref_dom",
       "ref_dom_iterable",
       "ref_es2022",
@@ -20,21 +41,22 @@
       "tsconfig_compileroptions_usedefineforclassfields",
       "tsconfig_include"
     ],
-    "1": [
-      "src_main_apppage",
-      "src_main_comparison",
-      "src_main_demo",
-      "src_main_demobanner",
-      "src_main_facts",
-      "src_main_infopage",
-      "src_main_landing",
-      "src_main_layout",
-      "src_main_notfound",
-      "src_main_render",
-      "src_main_title",
-      "src_main_workbench"
-    ],
     "2": [
+      "src_main_clear",
+      "src_main_db",
+      "src_main_download",
+      "src_main_key",
+      "src_main_load",
+      "src_main_makewav",
+      "src_main_samplewav",
+      "src_main_save",
+      "src_main_seeddemo",
+      "src_main_startrecord",
+      "src_main_statustext",
+      "src_main_towav",
+      "src_main_wire"
+    ],
+    "3": [
       "axe_core_playwright",
       "package_devdependencies",
       "package_devdependencies_axe_core_playwright",
@@ -46,19 +68,6 @@
       "types_node",
       "typescript",
       "vite"
-    ],
-    "3": [
-      "src_main",
-      "src_main_download",
-      "src_main_esc",
-      "src_main_route",
-      "src_main_savedscroll",
-      "src_main_showupdate",
-      "src_main_status",
-      "src_main_take",
-      "src_main_takecard",
-      "src_main_takes",
-      "src_main_wave"
     ],
     "4": [
       "package",
@@ -73,55 +82,41 @@
       "package_version"
     ],
     "5": [
-      "src_main_clear",
-      "src_main_navigate",
-      "src_main_save",
-      "src_main_seeddemo",
-      "src_main_startrecord",
-      "src_main_statustext",
-      "src_main_wire"
-    ],
-    "6": [
       "test",
       "tests_app_spec",
+      "tests_app_spec_clearappstorage",
       "tests_app_spec_idbkeys",
       "tests_app_spec_recordshorttake"
     ],
+    "6": [
+      "src_main_esc",
+      "src_main_status",
+      "src_main_takecard",
+      "src_main_wave"
+    ],
     "7": [
-      "src_main_db",
-      "src_main_key",
-      "src_main_load"
-    ],
-    "8": [
-      "src_main_makewav",
-      "src_main_samplewav",
-      "src_main_towav"
-    ],
-    "9": [
       "public_sw",
       "public_sw_fromcurrentcache"
     ],
-    "10": [
+    "8": [
       "vite_config",
       "vite_config_staticroutes"
     ],
-    "11": [
+    "9": [
       "playwright_config"
     ]
   },
   "cohesion": {
-    "0": 0.1111111111111111,
-    "1": 0.25757575757575757,
-    "2": 0.18181818181818182,
-    "3": 0.2545454545454545,
+    "0": 0.21052631578947367,
+    "1": 0.1111111111111111,
+    "2": 0.23076923076923078,
+    "3": 0.18181818181818182,
     "4": 0.2,
-    "5": 0.47619047619047616,
-    "6": 0.5,
-    "7": 0.6666666666666666,
-    "8": 0.6666666666666666,
-    "9": 1.0,
-    "10": 1.0,
-    "11": 1.0
+    "5": 0.4,
+    "6": 0.6666666666666666,
+    "7": 1.0,
+    "8": 1.0,
+    "9": 1.0
   },
   "gods": [
     {
@@ -185,7 +180,7 @@
       ],
       "confidence": "INFERRED",
       "relation": "indirect_call",
-      "note": "Bridges community 3 \u2192 community 1"
+      "note": "Bridges community 6 \u2192 community 0"
     },
     {
       "source": "key()",
@@ -196,40 +191,7 @@
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "note": "Bridges community 1 \u2192 community 7"
-    },
-    {
-      "source": "save()",
-      "target": "db()",
-      "source_files": [
-        "src/main.ts",
-        "src/main.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "note": "Bridges community 7 \u2192 community 5"
-    },
-    {
-      "source": "clear()",
-      "target": "render()",
-      "source_files": [
-        "src/main.ts",
-        "src/main.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "note": "Bridges community 5 \u2192 community 1"
-    },
-    {
-      "source": "seedDemo()",
-      "target": "sampleWav()",
-      "source_files": [
-        "src/main.ts",
-        "src/main.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "note": "Bridges community 8 \u2192 community 5"
+      "note": "Bridges community 0 \u2192 community 2"
     }
   ],
   "tokens": {
