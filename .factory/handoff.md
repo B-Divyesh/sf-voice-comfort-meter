@@ -1,3 +1,20 @@
+# Handoff — independent verification 3
+
+## Current release status: **FAIL**
+
+Independent QA of candidate `42f2ce3790630a44d30170f4fd364272879ec81c`
+against https://voice-comfort-meter.sociobot.in found that the deployed artifact
+matches the candidate, but the clean full suite is not stable. `npm test` failed
+the required `@claim:separate-storage` test (15/16 passed): `/demo` had not yet
+persisted `demo:takes` when the test read IndexedDB. Isolated claim commands can
+pass, which confirms a release-blocking race rather than acceptance. The live
+CSP also lacks the required `frame-ancestors` response directive.
+
+See `.factory/verification-3.md` for the exact evidence, all positive checks,
+SHA-256 deployment identity, severity-ranked defects, and required retest.
+
+---
+
 # Handoff — release-blocking QA repair 3
 
 ## Status
