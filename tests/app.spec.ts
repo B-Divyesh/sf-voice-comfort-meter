@@ -20,6 +20,19 @@ async function idbKeys(page: import('@playwright/test').Page) {
   });
 }
 
+async function clearAppStorage(page: import('@playwright/test').Page) {
+  await page.evaluate(async () => {
+    await Promise.all((await navigator.serviceWorker.getRegistrations()).map(registration => registration.unregister()));
+    await Promise.all((await caches.keys()).map(key => caches.delete(key)));
+    await new Promise<void>((resolve, reject) => {
+      const request = indexedDB.deleteDatabase('voice-comfort-meter');
+      request.onsuccess = () => resolve();
+      request.onerror = () => reject(request.error);
+      request.onblocked = () => reject(new Error('voice-comfort-meter database deletion was blocked'));
+    });
+  });
+}
+
 async function recordShortTake(page: import('@playwright/test').Page) {
   await page.context().grantPermissions(['microphone'], { origin: 'http://127.0.0.1:4173' });
   await page.getByRole('button', { name: /Record take 1/ }).click();
@@ -54,24 +67,23 @@ test('@claim:wav-export Exports a take as WAV', async ({ page }) => {
 });
 
 test('@claim:offline-reload Use it after the first visit', async ({ page, context }) => {
-  // Make the claim test a true first visit even when another test used this
-  // browser process: an older worker must never supply this test's shell.
+  // Make this a true first visit. In particular, wait for IndexedDB deletion:
+  // starting deletion without waiting can erase the newly seeded demo records
+  // during the offline reload and produces a false pass/fail race.
   await page.goto('/');
-  await page.evaluate(async () => {
-    await Promise.all((await navigator.serviceWorker.getRegistrations()).map(registration => registration.unregister()));
-    await Promise.all((await caches.keys()).map(key => caches.delete(key)));
-    indexedDB.deleteDatabase('voice-comfort-meter');
-  });
+  await clearAppStorage(page);
   await page.reload();
   await page.goto('/demo/');
   await page.waitForFunction(() => navigator.serviceWorker.controller !== null);
   await page.reload();
   await expect(page.locator('.take-card')).toHaveCount(2);
+  await expect.poll(() => idbKeys(page)).toEqual(['demo:takes']);
   await page.waitForFunction(async () => Boolean(await caches.match('/demo/')));
   await context.setOffline(true);
   await page.reload();
   expect(page.url()).toMatch(/\/demo\/?$/);
   await expect(page.locator('.take-card')).toHaveCount(2);
+  await expect.poll(() => idbKeys(page)).toEqual(['demo:takes']);
 });
 
 test('@claim:no-account-payment Try the sample without an account or payment', async ({ page }) => {

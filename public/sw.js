@@ -1,6 +1,10 @@
 const VERSION = 'voice-comfort-meter-__BUILD_ID__';
 const SHELL = __SHELL__;
-const fromCurrentCache = request => caches.open(VERSION).then(cache => cache.match(request));
+// The shell is precached from same-origin URLs. Static hosts may add `Vary`
+// response headers that differ between the install fetch and a module/style
+// request; match the known shell by URL so those headers cannot turn a cached
+// offline asset into a miss.
+const fromCurrentCache = request => caches.open(VERSION).then(cache => cache.match(request, { ignoreSearch: true, ignoreVary: true }));
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(VERSION).then(cache => cache.addAll(SHELL)));

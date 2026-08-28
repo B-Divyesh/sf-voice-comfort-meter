@@ -1,5 +1,40 @@
 # Handoff — Voice Comfort Meter repair
 
+## Offline reload follow-up repair
+
+The controller-reported `@claim:offline-reload` failure was reproduced before
+this repair: after `context.setOffline(true)` and a reload of `/demo/`, zero
+`.take-card` records rendered. The worker had precached the HTML, JS, and CSS,
+but the static host's `Vary` response metadata made the worker's ordinary cache
+lookup miss the JS and CSS module requests offline (`net::ERR_FAILED`).
+
+- `public/sw.js` now matches the self-contained, same-origin precached shell by
+  URL with `ignoreVary: true`; a host-added `Vary` header can no longer hide a
+  precached script or stylesheet.
+- Demo seeding now retains its shipped records in memory if a transient
+  IndexedDB write fails, instead of allowing an empty demo shell.
+- The offline claim regression waits for IndexedDB deletion to complete,
+  verifies the persisted `demo:takes` key before going offline, reloads
+  offline, and verifies both the two visible cards and that key again.
+
+Verification on 2026-08-28 from a fresh `npm ci`:
+
+- `npm test -- --grep @claim:offline-reload` passed five consecutive fresh
+  build/browser runs.
+- Every command in `.factory/claims.json` passed from the demo entry point.
+- `npm test` passed: **13/13 Playwright tests**.
+- `npm run build` passed and produced `dist/`; app JS is 14.87 KB (5.96 KB
+  gzip), CSS is 9.01 KB (2.88 KB gzip).
+- The browser suite covers desktop, 390px mobile/touch targets, keyboard skip
+  link, axe WCAG 2/2.1/2.2 A/AA checks (zero serious or critical findings),
+  privacy request logging, fake-microphone recording, explicit offline reload,
+  update policy, and production artifact configuration.
+
+The existing production site was checked before redeployment: `/` returned
+200 with the required CSP; `/does-not-exist` returned real HTTP 404 with the
+required security headers. The repaired `dist/` artifact is deployed after the
+repair commit; live cache/header and browser evidence follows below.
+
 ## Release repair
 
 Repaired the release blockers reported against candidate `1ecfe0092be235667733013eba4a6ce569b7b025`:
