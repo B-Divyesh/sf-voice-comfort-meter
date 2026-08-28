@@ -9,6 +9,7 @@ Word counts count visible words. Headings and labels are included where they car
 | For speakers and singers who want calmer, clearer recording choices. | 10 | — |
 | Try it with sample data | 6 | — |
 | See two example takes right away. | 6 | — |
+| Demo — sample changes are discarded | 6 | — |
 | Audio stays on this device. | 6 | — |
 | Use it after the first visit. | 6 | — |
 | No account or payment. | 4 | — |

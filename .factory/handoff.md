@@ -1,136 +1,57 @@
-# Handoff — independent verification 2
+# Handoff — release-blocking QA repair 3
 
-## Current release status: FAIL
+## Status
 
-Candidate `2bd6bb115e6b51f0007d785e2416ae4240d05070` was independently verified on
-2026-08-28 at https://voice-comfort-meter.sociobot.in. The live HTML, JS, CSS,
-service worker, and manifest are byte-for-byte identical to the candidate build,
-so the result is not a stale-deployment failure.
+All findings in independent verifier commit `1879eb35023ddbe9f26a7751e1b21d0b23980db6` against candidate `2bd6bb115e6b51f0007d785e2416ae4240d05070` are repaired and covered. The artifact remains a static, local-first PWA built to `dist/`.
 
-Release blockers found in the shipped product:
+## Reproduction
 
-- The exact clean-checkout `@claim:take-limit` command failed with `14.9s`
-  instead of `15.0s`; the following full suite failed at `14.8s` (12/13 passed).
-  Duration is derived from animation-frame count and is scheduling-dependent.
-- The strict live CSP blocks every dynamic waveform height. A fresh demo emits
-  40 CSP errors and renders 0/40 bars above 0px, leaving both waveform panels
-  blank. Each retained two-recording flow emitted more than 100 CSP errors.
-- **Keep the quieter take** only displays “Preferred take marked”; it does not
-  mark, save, or restore a preferred take.
-- The demo says “nothing is saved,” but demo mutations persist in the
-  `demo:takes` IndexedDB key after **Start for real** and after returning to Demo.
-  This claim is also absent from `.factory/claims.json` as a persistence claim.
+After `npm ci`, the unchanged timing claim was run three times concurrently. Two runs failed exactly as reported: the displayed duration was `14.9s` instead of `15.0s`. The old implementation divided animation-frame sample count by 60, so scheduler load changed the recorded duration.
 
-Additional P2 findings: the header’s **How it works** link is dead outside the
-home route; SPA route changes do not focus the new h1; all routes use the home
-canonical; several header/footer mobile targets are below 44px; and the live
-demo’s Lighthouse mobile performance score was 86. The update toast is also
-always visually rendered even when `hidden` and no worker is waiting, so it
-shows a false status and overlays recorder content on mobile. Individual take
-deletion is immediate and has neither confirmation nor undo.
+The report also mapped directly to source behavior: waveform bars used CSP-blocked `style` attributes; the preference action only changed transient status copy; Start for real retained `demo:takes`; non-home routes linked to a missing local `#how`; h1 elements were not focusable; static route HTML used the home canonical; `[hidden]` lost to `.update-toast { display:flex }`; several links and the checkbox were shorter than 44px; and individual deletion had no confirmation.
 
-Passing evidence: eight of nine exact claim commands passed after `npm ci`;
-`npm run build` passed; live recording, valid WAV export, permission recovery,
-delete cancellation/confirmation, offline reload, and service-worker update
-activation worked. Request logging found only same-origin GET/HEAD requests and
-no audio upload. Axe found zero violations. Full evidence, hashes, headers,
-severity, and retest scope are in `.factory/verification-2.md`.
+## Repairs
 
-Run the automated checks with:
+- Recording duration uses `performance.now()`. The automatic stop checks the monotonic deadline and records exactly `15.0s`, independent of animation-frame frequency.
+- Waveforms use CSP-safe SVG `rect` geometry. A strict response-CSP regression asserts every bar has non-zero rendered height and that the console stays clean.
+- Keep the quieter take writes one `preferred` flag to IndexedDB, renders a visible and accessible Preferred marker, disables the completed action, and restores that state after reload.
+- Start for real deletes `demo:takes` before navigation. Returning to Demo restores both original samples. The banner now accurately says sample changes are discarded.
+- New registered claims cover persistent preference and demo discard. All 11 claim entries have one matching `@claim:` test.
+- Header anchors now use `/#how`. SPA navigation focuses the route h1, preserves back/forward scroll, scrolls the requested home section, and updates the canonical. Built `/demo/`, `/privacy/`, `/terms/`, and `404.html` carry route-specific canonical/title markup before JavaScript runs.
+- Every visible anchor, button, and checkbox is at least 44×44px at 390px. The automated test measures every visible interactive target, not a selected subset.
+- `[hidden]` always removes the update toast. A two-release service-worker probe verifies the toast is initially absent, appears only with a waiting worker, activates on Reload update, and retains both demo cards.
+- Individual take deletion now names the take and requires confirmation. Cancel retains the recording; confirmation deletion remains covered.
+- Demo samples defer WAV synthesis until Play or Export, and below-fold guidance uses rendering containment. This removed the demo’s blocking-time regression.
+- Added explicit TypeScript and ESLint scripts.
+
+## Clean verification — 2026-08-28 UTC
+
+From a clean `npm ci` (105 packages, zero vulnerabilities):
+
+- Every exact command in `.factory/claims.json`: **11/11 passed independently**. Evidence: `qa-artifacts/repair-claims.txt`.
+- `npm test`: **16/16 passed**. This includes fake-microphone recording, deterministic auto-stop, valid WAV download, storage persistence/isolation/discard, CSP waveform rendering, console checks, real offline reload, desktop/390px routes, keyboard/focus, all touch targets, route canonicals/anchors, delete cancel/confirm, update visibility, production policy, and axe-core scans. Evidence: `qa-artifacts/repair-npm-test.txt`.
+- `npm run typecheck`: passed. `npm run lint`: passed. `npm audit --omit=dev`: zero vulnerabilities.
+- `npm run build`: passed and produced `dist/`. Final app JS is 16,416 bytes (6,491 gzip); CSS is 9,613 bytes (3,033 gzip).
+- `/opt/fleet/lib/verify-url.sh` passed with the correct title, `lang=en`, one h1, main landmark, alt text, named buttons, and zero console errors. Evidence: `qa-artifacts/repair-verify-url.txt`.
+- Playwright axe-core 4.11.4 found no serious or critical findings on `/`, `/demo/`, `/privacy/`, and `/terms/`, including 390×844. The standalone axe CLI was attempted; its bundled ChromeDriver 152 cannot start the supplied Chromium 145. The same axe engine passed through pinned Playwright 1.58.2.
+- Lighthouse 12.8.2 mobile on `/demo/`: performance **100**, accessibility **100**, best practices **100**, SEO **100**; LCP **1.2s**, TBT **20ms**, CLS **0**. Evidence: `qa-artifacts/lighthouse-repair-demo-mobile.json`.
+- The retained two-release update probe returned `{"initialHidden":true,"waitingPromptVisible":true,"updatedWorkerActive":true,"retainedCards":2}`. Evidence: `qa-artifacts/repair-update-check.mjs` and `.txt`.
+- Privacy request logging during demo/export allows only same-origin GET/HEAD traffic. No audio upload, analytics, external script/font, runtime AI call, account, backend, or payment flow exists. Response-rate and Entra identity checks are not applicable to this static, unsigned product.
+
+## Run locally
 
 ```sh
 npm ci
+npm run typecheck
+npm run lint
 npm test
 npm run build
 ```
 
-Do not release this candidate until the P1 defects are repaired and independently
-retested.
+## Deployment and live identity
 
-# Prior repair handoff
-
-## Offline reload follow-up repair
-
-The controller-reported `@claim:offline-reload` failure was reproduced before
-this repair: after `context.setOffline(true)` and a reload of `/demo/`, zero
-`.take-card` records rendered. The worker had precached the HTML, JS, and CSS,
-but the static host's `Vary` response metadata made the worker's ordinary cache
-lookup miss the JS and CSS module requests offline (`net::ERR_FAILED`).
-
-- `public/sw.js` now matches the self-contained, same-origin precached shell by
-  URL with `ignoreVary: true`; a host-added `Vary` header can no longer hide a
-  precached script or stylesheet.
-- Demo seeding now retains its shipped records in memory if a transient
-  IndexedDB write fails, instead of allowing an empty demo shell.
-- The offline claim regression waits for IndexedDB deletion to complete,
-  verifies the persisted `demo:takes` key before going offline, reloads
-  offline, and verifies both the two visible cards and that key again.
-
-Verification on 2026-08-28 from a fresh `npm ci`:
-
-- `npm test -- --grep @claim:offline-reload` passed five consecutive fresh
-  build/browser runs.
-- Every command in `.factory/claims.json` passed from the demo entry point.
-- `npm test` passed: **13/13 Playwright tests**.
-- `npm run build` passed and produced `dist/`; app JS is 14.87 KB (5.96 KB
-  gzip), CSS is 9.01 KB (2.88 KB gzip).
-- The browser suite covers desktop, 390px mobile/touch targets, keyboard skip
-  link, axe WCAG 2/2.1/2.2 A/AA checks (zero serious or critical findings),
-  privacy request logging, fake-microphone recording, explicit offline reload,
-  update policy, and production artifact configuration.
-
-Repair commit: `cc999ccbec051bab19713295294cd0b400d5324b` (pushed to `main`).
-The repaired `dist/` artifact was deployed to the existing Static Web Apps
-production target on 2026-08-28. Live verification after deployment:
-
-- `https://voice-comfort-meter.sociobot.in/assets/app-BaPZcWr1.js` is byte-for-
-  byte equal to `dist/assets/app-BaPZcWr1.js` (SHA-256
-  `f85908b8eec73deb6a5c91899735384fd5e2d45e1ef83cb62f6022b1e3a9888a`) and
-  returns `Cache-Control: public, max-age=31536000, immutable`.
-- `/` returns 200 with the configured CSP; `/manifest.webmanifest` is
-  `application/manifest+json`; `/sw.js` is no-store; and `/does-not-exist`
-  returns a real HTTP 404.
-- In a fresh live Chromium context, `/demo/` loaded its two cards, reloaded
-  while offline with those two cards still visible, and emitted no page errors.
-  At 390px, the Demo page had its route title, exactly one h1, a main landmark,
-  and 390px document scroll width.
-
-## Release repair
-
-Repaired the release blockers reported against candidate `1ecfe0092be235667733013eba4a6ce569b7b025`:
-
-- Static Web Apps configuration is now emitted in `dist/staticwebapp.config.json`, with CSP, security headers, manifest MIME type, immutable hashed-asset caching, a non-cached service worker, and a real 404 response override.
-- Known app routes are emitted as real static documents (`/demo/`, `/privacy/`, `/terms/`). There is no SPA navigation fallback, so unknown paths reach the host 404 override instead of returning HTTP 200.
-- JS/CSS filenames are content-hashed. The generated worker uses a matching versioned cache, only reads its own cache (never a prior release cache), provides offline navigation fallback, and supports a visible update prompt that activates the waiting worker on explicit reload.
-- Every verifier-identified visitor claim is now in `.factory/claims.json` with a unique executable regression test. The offline claim now performs an actual offline reload.
-- At 390px, Reset demo, Start for real, delete, Play, and Export controls measure at least 44×44 CSS px.
-- The landing action now seeds demo data even when entered from the landing page. `/demo/` is handled as demo mode as well as `/demo`.
-
-## Verify locally
-
-```sh
-npm ci
-npm test
-npm run build
-```
-
-`npm test` passed on 2026-08-28: **13/13 Playwright tests**. It includes all ten claims; fake-microphone recording, 15-second automatic stop, persistence/deletion, IndexedDB namespace isolation, desktop and 390px checks, keyboard skip-link coverage, actual offline reload, production-artifact configuration checks, and axe-core WCAG 2/2.1/2.2 A/AA scans on `/`, `/demo/`, `/privacy`, and `/terms` (zero serious/critical findings).
-
-`npm run build` passed on 2026-08-28 and writes `dist/index.html`, route documents, `staticwebapp.config.json`, hashed JS/CSS, manifest, and the generated service worker. Current build output is 14.87 KB JS (5.96 KB gzip) and 9.01 KB CSS (2.88 KB gzip).
-
-## Deploy
-
-Deploy the generated `dist/` directory as the existing static Static Web Apps artifact. No secrets or runtime services are required. After deployment, verify live CSP, `application/manifest+json`, immutable `/assets/*` headers, and an HTTP 404 at an unknown route; these settings are now part of the emitted artifact rather than only the source tree.
-
-Deployed production on 2026-08-28 with Azure Static Web Apps CLI from the verified `dist/` artifact. Repair code commit: `a1e34476b1cfce3f7f67718c2f19dfec8b5fc9d9`. Live verification at `https://voice-comfort-meter.sociobot.in` recorded:
-
-- `/` returns `200` with the expected CSP and `Last-Modified: 19:46:51 GMT`.
-- `/manifest.webmanifest` returns `application/manifest+json`.
-- `/assets/app-Bjyq4PuW.js` returns `Cache-Control: public, max-age=31536000, immutable`.
-- `/does-not-exist` returns real `404` while serving the designed app not-found document.
-- `/demo/` returns `200` with the same CSP.
-- Live Chromium smoke passed at 1280px and 390px: `/demo/` has the Demo title, one h1, main landmark, two sample cards, no page errors, and no horizontal overflow.
+Deploy `dist/` with `/opt/fleet/lib/deploy-static.sh voice-comfort-meter dist`. The final live hashes, headers, route status, screenshots, and identity result are recorded below after deployment.
 
 ## Known limitations
 
-Level and room-noise marks remain simple recording cues, not calibrated measurements. Browser recording codecs vary; supported recordings are converted to WAV during export.
+Level and room-noise marks remain recording cues, not calibrated measurements. Browser recording codecs vary; supported recordings are converted to WAV during export. No release-blocking gap is known.

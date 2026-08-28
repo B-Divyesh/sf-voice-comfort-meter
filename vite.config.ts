@@ -10,15 +10,25 @@ function staticRoutes(): Plugin {
     name: 'voice-comfort-meter-static-routes',
     async closeBundle() {
       const outDir = join(process.cwd(), 'dist');
-      const index = await readFile(join(outDir, 'index.html'));
-      for (const route of ['demo', 'privacy', 'terms']) {
+      const index = await readFile(join(outDir, 'index.html'), 'utf8');
+      const routeMeta = {
+        demo: { title: 'Demo — Voice Comfort Meter', canonical: 'https://voice-comfort-meter.sociobot.in/demo/' },
+        privacy: { title: 'Privacy — Voice Comfort Meter', canonical: 'https://voice-comfort-meter.sociobot.in/privacy/' },
+        terms: { title: 'Terms — Voice Comfort Meter', canonical: 'https://voice-comfort-meter.sociobot.in/terms/' }
+      } as const;
+      for (const route of Object.keys(routeMeta) as Array<keyof typeof routeMeta>) {
         const folder = join(outDir, route);
         await mkdir(folder, { recursive: true });
-        await writeFile(join(folder, 'index.html'), index);
+        const meta = routeMeta[route];
+        await writeFile(join(folder, 'index.html'), index
+          .replace(/<title>.*?<\/title>/, `<title>${meta.title}</title>`)
+          .replace(/<link rel="canonical" href="[^"]+"\s*\/>/, `<link rel="canonical" href="${meta.canonical}" />`));
       }
       // Static Web Apps rewrites genuine misses to this document while keeping
       // the original URL. The client then renders its designed not-found page.
-      await writeFile(join(outDir, '404.html'), index);
+      await writeFile(join(outDir, '404.html'), index
+        .replace(/<title>.*?<\/title>/, '<title>Not found — Voice Comfort Meter</title>')
+        .replace(/<link rel="canonical" href="[^"]+"\s*\/>/, '<link rel="canonical" href="https://voice-comfort-meter.sociobot.in/404/" />'));
 
       const assets = (await readdir(join(outDir, 'assets'))).sort();
       const buildId = createHash('sha256').update(assets.join('|')).digest('hex').slice(0, 12);

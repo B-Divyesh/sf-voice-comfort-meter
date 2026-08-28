@@ -20,6 +20,23 @@ async function idbKeys(page: import('@playwright/test').Page) {
   });
 }
 
+async function idbValue<T>(page: import('@playwright/test').Page, key: string) {
+  return page.evaluate(async storedKey => {
+    const db = await new Promise<IDBDatabase>((resolve, reject) => {
+      const request = indexedDB.open('voice-comfort-meter');
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+    const value = await new Promise<unknown>((resolve, reject) => {
+      const request = db.transaction('takes').objectStore('takes').get(storedKey);
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+    db.close();
+    return value;
+  }, key) as Promise<T>;
+}
+
 async function clearAppStorage(page: import('@playwright/test').Page) {
   await page.evaluate(async () => {
     await Promise.all((await navigator.serviceWorker.getRegistrations()).map(registration => registration.unregister()));
@@ -42,11 +59,27 @@ async function recordShortTake(page: import('@playwright/test').Page) {
 }
 
 test('@claim:demo-comparison Shows two sample takes right away', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+  await page.route('**/*', async route => {
+    if (route.request().resourceType() !== 'document') return route.continue();
+    const response = await route.fetch();
+    await route.fulfill({
+      response,
+      headers: {
+        ...response.headers(),
+        'content-security-policy': "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:"
+      }
+    });
+  });
   await page.goto('/');
   await page.getByRole('button', { name: 'Try it with sample data' }).click();
-  await expect(page.getByText('Demo — sample data, nothing is saved')).toBeVisible();
+  await expect(page.getByText('Demo — sample changes are discarded')).toBeVisible();
   await expect(page.locator('.take-card')).toHaveCount(2);
   await expect(page.getByRole('heading', { name: 'Look for the setup you prefer' })).toBeVisible();
+  await expect(page.locator('.wave svg')).toHaveCount(2);
+  expect(await page.locator('.wave rect').evaluateAll(rects => rects.every(rect => rect.getBoundingClientRect().height > 0))).toBeTruthy();
+  expect(errors).toEqual([]);
 });
 
 test('@claim:privacy-local Audio stays on this device', async ({ page }) => {
@@ -126,6 +159,7 @@ test('@claim:recordings-until-delete Recordings remain after export until delete
   await recordShortTake(page);
   await page.reload();
   await expect(page.locator('.take-card')).toHaveCount(1);
+  page.once('dialog', dialog => dialog.accept());
   await page.getByRole('button', { name: /Delete Take 1/ }).click();
   await expect(page.locator('.take-card')).toHaveCount(0);
 });
@@ -133,9 +167,37 @@ test('@claim:recordings-until-delete Recordings remain after export until delete
 test('@claim:separate-storage Demo and real takes use separate storage namespaces', async ({ page }) => {
   await page.goto('/demo');
   expect(await idbKeys(page)).toEqual(['demo:takes']);
-  await page.getByRole('button', { name: 'Start for real' }).click();
+  await page.goto('/');
   await recordShortTake(page);
   expect(await idbKeys(page)).toEqual(['demo:takes', 'real:takes']);
+});
+
+test('@claim:preferred-take The quieter choice persists after reload', async ({ page }) => {
+  await page.goto('/demo/');
+  await page.getByRole('button', { name: 'Keep the quieter take' }).click();
+  const preferred = page.locator('.take-card.is-preferred');
+  await expect(preferred).toHaveCount(1);
+  await expect(preferred).toContainText('One hand closer');
+  await expect(preferred).toContainText('Preferred');
+  const stored = await idbValue<Array<{ id: string; preferred?: boolean }>>(page, 'demo:takes');
+  expect(stored.find(take => take.preferred)?.id).toBe('sample-2');
+  await page.reload();
+  await expect(page.locator('.take-card.is-preferred')).toContainText('One hand closer');
+  await expect(page.getByRole('button', { name: 'Quieter take kept' })).toBeDisabled();
+});
+
+test('@claim:demo-discard Demo changes are discarded on Start for real', async ({ page }) => {
+  await page.goto('/demo/');
+  page.once('dialog', dialog => dialog.accept());
+  await page.getByRole('button', { name: 'Delete Desk distance' }).click();
+  await expect(page.locator('.take-card')).toHaveCount(1);
+  await page.getByRole('button', { name: 'Start for real' }).click();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
+  expect(await idbKeys(page)).not.toContain('demo:takes');
+  await expect(page.locator('.take-card')).toHaveCount(0);
+  await page.goto('/demo/');
+  await expect(page.locator('.take-card')).toHaveCount(2);
 });
 
 test('keyboard path reaches recording control', async ({ page }) => {
@@ -162,18 +224,34 @@ test('desktop and mobile routes have no serious or critical axe findings', async
 test('mobile controls meet the 44px touch-target baseline', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/demo');
-  for (const button of [
-    page.getByRole('button', { name: 'Reset demo' }),
-    page.getByRole('button', { name: 'Start for real' }),
-    page.getByRole('button', { name: /Delete Desk distance/ }),
-    page.getByRole('button', { name: 'Play take' }).first(),
-    page.getByRole('button', { name: 'Export WAV' }).first()
-  ]) {
-    const box = await button.boundingBox();
-    expect(box?.width).toBeGreaterThanOrEqual(44);
-    expect(box?.height).toBeGreaterThanOrEqual(44);
+  const targets = page.locator('a, button, input');
+  for (let index = 0; index < await targets.count(); index += 1) {
+    const target = targets.nth(index);
+    if (!(await target.isVisible())) continue;
+    const box = await target.boundingBox();
+    expect(box?.width, await target.getAttribute('aria-label') ?? await target.textContent() ?? `target ${index}`).toBeGreaterThanOrEqual(44);
+    expect(box?.height, await target.getAttribute('aria-label') ?? await target.textContent() ?? `target ${index}`).toBeGreaterThanOrEqual(44);
   }
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+});
+
+test('cross-route anchors, focus, canonicals, update state, and deletion are correct', async ({ page }) => {
+  for (const [path, canonical] of [['/', '/'], ['/demo/', '/demo/'], ['/privacy/', '/privacy/'], ['/terms/', '/terms/'], ['/does-not-exist', '/404/']] as const) {
+    await page.goto(path);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://voice-comfort-meter.sociobot.in${canonical}`);
+    await expect(page.getByRole('link', { name: 'How it works' })).toHaveAttribute('href', '/#how');
+  }
+  await page.goto('/privacy/');
+  await page.getByRole('link', { name: 'How it works' }).click();
+  await expect(page).toHaveURL(/\/#how$/);
+  await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
+  await expect(page.locator('#how')).toBeInViewport();
+
+  await page.goto('/demo/');
+  await expect(page.locator('#update-toast')).toBeHidden();
+  page.once('dialog', dialog => dialog.dismiss());
+  await page.getByRole('button', { name: 'Delete Desk distance' }).click();
+  await expect(page.locator('.take-card')).toHaveCount(2);
 });
 
 test('production artifact ships deployment config, static routes, hashes, and update policy', async () => {
@@ -183,7 +261,10 @@ test('production artifact ships deployment config, static routes, hashes, and up
   expect(config.responseOverrides['404'].rewrite).toBe('/404.html');
   expect(config.mimeTypes['.webmanifest']).toBe('application/manifest+json');
   expect(config.globalHeaders['Content-Security-Policy']).toContain("default-src 'self'");
-  for (const route of ['demo', 'privacy', 'terms']) await expect(readFile(join(root, route, 'index.html'))).resolves.toBeTruthy();
+  for (const route of ['demo', 'privacy', 'terms']) {
+    const html = await readFile(join(root, route, 'index.html'), 'utf8');
+    expect(html).toContain(`https://voice-comfort-meter.sociobot.in/${route}/`);
+  }
   const assets = await readdir(join(root, 'assets'));
   expect(assets.some(asset => /^app-[\w-]+\.js$/.test(asset))).toBeTruthy();
   expect(assets.some(asset => /^app-[\w-]+\.css$/.test(asset))).toBeTruthy();

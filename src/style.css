@@ -48,6 +48,9 @@ button:disabled {
   cursor: not-allowed;
   opacity: 0.55;
 }
+[hidden] {
+  display: none !important;
+}
 a {
   color: var(--cyan);
   text-underline-offset: 3px;
@@ -90,6 +93,10 @@ header {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-weight: 800;
   letter-spacing: -0.04em;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding-block: 8px;
 }
 .wordmark span {
   color: var(--orange);
@@ -102,6 +109,12 @@ nav {
 nav a {
   color: var(--paper);
   text-decoration-thickness: 1px;
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 4px;
 }
 .route-note {
   position: absolute;
@@ -262,14 +275,16 @@ h3 {
 .check {
   display: flex;
   gap: 9px;
-  align-items: flex-start;
+  align-items: center;
+  min-height: 44px;
   margin: 24px 0;
   font-size: 0.89rem;
   color: var(--muted);
 }
 .check input {
-  width: 20px;
-  height: 20px;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
   accent-color: var(--orange);
 }
 .record-btn {
@@ -352,18 +367,27 @@ h3 {
   margin: 10px 0 15px;
   border-block: 1px solid #b9ccce;
 }
-.wave span {
-  display: flex;
-  align-items: center;
-  gap: 2px;
+.wave svg {
+  display: block;
   height: 100%;
   width: 100%;
 }
-.wave i {
-  display: block;
-  min-width: 3px;
-  flex: 1;
-  background: #237b91;
+.wave rect {
+  fill: #237b91;
+}
+.take-card.is-preferred {
+  outline: 4px solid #4f7300;
+  outline-offset: -4px;
+}
+.preferred-mark {
+  margin-left: auto;
+  padding: 3px 7px;
+  color: #314c00;
+  background: #dff7b4;
+  border: 1px solid #6b8f22;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.7rem;
+  font-weight: 800;
 }
 .metrics {
   display: grid;
@@ -479,6 +503,8 @@ h3 {
 .guidance {
   padding-top: 0;
   margin-bottom: 45px;
+  content-visibility: auto;
+  contain-intrinsic-size: 320px;
 }
 .guidance ul {
   padding-left: 22px;
@@ -547,6 +573,12 @@ footer {
 }
 footer a {
   color: var(--paper);
+  display: inline-flex;
+  align-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
+  padding-inline: 4px;
 }
 @keyframes pulse {
   50% {
