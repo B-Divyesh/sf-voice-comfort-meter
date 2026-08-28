@@ -1,68 +1,74 @@
 {
   ".factory/brief.json": {
-    "mtime": 1787944982.1516237,
-    "seen": 1787944983.019068,
+    "mtime": 1787947455.353457,
+    "seen": 1787947456.17995,
     "ast_hash": "ec7d8e33d5662aaa3f77a53c466a6a4f",
     "semantic_hash": "ec7d8e33d5662aaa3f77a53c466a6a4f"
   },
   ".factory/claims.json": {
-    "mtime": 1787944982.1516237,
-    "seen": 1787944983.0190723,
-    "ast_hash": "c35129869871398e09af6418b7db546d",
-    "semantic_hash": "c35129869871398e09af6418b7db546d"
+    "mtime": 1787947455.353457,
+    "seen": 1787947456.1799555,
+    "ast_hash": "0ef00a7375328b454cad67a34abc0d8b",
+    "semantic_hash": "0ef00a7375328b454cad67a34abc0d8b"
   },
   "assets/src/blueprint-hero.png.json": {
-    "mtime": 1787944982.1556237,
-    "seen": 1787944983.019074,
+    "mtime": 1787947455.357457,
+    "seen": 1787947456.1799686,
     "ast_hash": "101ccef93213a8d3f6322ef4a7ac4921",
     "semantic_hash": "101ccef93213a8d3f6322ef4a7ac4921"
   },
   "package.json": {
-    "mtime": 1787944982.1596234,
-    "seen": 1787944983.0190756,
-    "ast_hash": "9e46b5c8609d7faec242f3bfed835f0a",
-    "semantic_hash": "9e46b5c8609d7faec242f3bfed835f0a"
+    "mtime": 1787947455.357457,
+    "seen": 1787947456.17997,
+    "ast_hash": "1f4d7581e7f0b544cb07cffab8082936",
+    "semantic_hash": "1f4d7581e7f0b544cb07cffab8082936"
   },
   "playwright.config.ts": {
-    "mtime": 1787944982.1596234,
-    "seen": 1787944983.019077,
-    "ast_hash": "91daa7656820931add6b3b3fe5062462",
-    "semantic_hash": "91daa7656820931add6b3b3fe5062462"
+    "mtime": 1787947455.357457,
+    "seen": 1787947456.179971,
+    "ast_hash": "1c339a5131ab319a4794666adb94a7a7",
+    "semantic_hash": "1c339a5131ab319a4794666adb94a7a7"
   },
   "public/sw.js": {
-    "mtime": 1787944982.1596234,
-    "seen": 1787944983.0190785,
-    "ast_hash": "e5324e15a7ce6bc6221cec044312ce14",
-    "semantic_hash": "e5324e15a7ce6bc6221cec044312ce14"
+    "mtime": 1787947455.357457,
+    "seen": 1787947456.1799738,
+    "ast_hash": "3f0ea16bb5384e1e160f33ab0f09bd41",
+    "semantic_hash": "3f0ea16bb5384e1e160f33ab0f09bd41"
   },
   "src/main.ts": {
-    "mtime": 1787944982.1596234,
-    "seen": 1787944983.0190797,
-    "ast_hash": "27527868a1c2f3dfd286d4439fcfa2a5",
-    "semantic_hash": "27527868a1c2f3dfd286d4439fcfa2a5"
+    "mtime": 1787947455.357457,
+    "seen": 1787947456.1799748,
+    "ast_hash": "922ac522a038a8c712a3b9f1e6154972",
+    "semantic_hash": "922ac522a038a8c712a3b9f1e6154972"
   },
   "staticwebapp.config.json": {
-    "mtime": 1787944982.1596234,
-    "seen": 1787944983.0190804,
-    "ast_hash": "d32fa49907be153c950063e6e3e4122d",
-    "semantic_hash": "d32fa49907be153c950063e6e3e4122d"
+    "mtime": 1787947455.357457,
+    "seen": 1787947456.1799762,
+    "ast_hash": "d16c8e012248088fc9f2a7d0e3d7d76c",
+    "semantic_hash": "d16c8e012248088fc9f2a7d0e3d7d76c"
   },
   "tests/app.spec.ts": {
-    "mtime": 1787944982.1596234,
-    "seen": 1787944983.0190814,
-    "ast_hash": "f0b5a14ed51b3829519be8928f8df3da",
-    "semantic_hash": "f0b5a14ed51b3829519be8928f8df3da"
+    "mtime": 1787947455.357457,
+    "seen": 1787947456.1799772,
+    "ast_hash": "4d8d987b61b607bf95d855cd558a966b",
+    "semantic_hash": "4d8d987b61b607bf95d855cd558a966b"
   },
   "tsconfig.json": {
-    "mtime": 1787944982.1596234,
-    "seen": 1787944983.0190825,
+    "mtime": 1787947455.357457,
+    "seen": 1787947456.179978,
     "ast_hash": "0fd84c9c1092ec64999eff1d7ab141c2",
     "semantic_hash": "0fd84c9c1092ec64999eff1d7ab141c2"
   },
   "vite.config.ts": {
-    "mtime": 1787944982.1596234,
-    "seen": 1787944983.0190835,
-    "ast_hash": "51d4a91aec8eba5a750687be83fbde14",
-    "semantic_hash": "51d4a91aec8eba5a750687be83fbde14"
+    "mtime": 1787947455.357457,
+    "seen": 1787947456.179979,
+    "ast_hash": "1265e45bb13ccf7aa5ac0a26607d2794",
+    "semantic_hash": "1265e45bb13ccf7aa5ac0a26607d2794"
+  },
+  "public/staticwebapp.config.json": {
+    "mtime": 1787947455.357457,
+    "seen": 1787947456.1799726,
+    "ast_hash": "d16c8e012248088fc9f2a7d0e3d7d76c",
+    "semantic_hash": "d16c8e012248088fc9f2a7d0e3d7d76c"
   }
 }
