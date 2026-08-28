@@ -188,8 +188,9 @@ test('@claim:offline-reload Use it after the first visit', async ({ page, contex
   await clearAppStorage(page);
   await page.reload();
   await page.goto('/demo/');
-  await page.waitForFunction(() => navigator.serviceWorker.controller !== null);
+  await page.waitForFunction(() => navigator.serviceWorker.ready.then(() => true));
   await page.reload();
+  await page.waitForFunction(() => navigator.serviceWorker.controller !== null);
   await expect(page.locator('.take-card')).toHaveCount(2);
   await expect.poll(() => idbKeys(page)).toEqual(['demo:takes']);
   await page.waitForFunction(async () => Boolean(await caches.match('/demo/')));
