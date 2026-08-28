@@ -1,0 +1,30 @@
+{
+  "resources": [
+    {
+      "name": "https://voice-comfort-meter.sociobot.in/assets/app-BaPZcWr1.js",
+      "type": "script",
+      "transfer": 6274,
+      "encoded": 5974,
+      "decoded": 14870
+    },
+    {
+      "name": "https://voice-comfort-meter.sociobot.in/assets/app-C0OZSqwG.css",
+      "type": "link",
+      "transfer": 3211,
+      "encoded": 2911,
+      "decoded": 9005
+    },
+    {
+      "name": "https://voice-comfort-meter.sociobot.in/art/blueprint-hero.webp",
+      "type": "img",
+      "transfer": 71890,
+      "encoded": 71590,
+      "decoded": 71590
+    }
+  ],
+  "totals": {
+    "transfer": 81375,
+    "encoded": 80475,
+    "decoded": 95465
+  }
+}

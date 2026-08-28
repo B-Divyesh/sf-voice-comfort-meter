@@ -1,0 +1,27 @@
+Running axe-core 4.11.4 in chrome-headless
+Error: SessionNotCreatedError: session not created
+from unknown error: cannot find Chrome binary
+    at Object.throwDecodedError (/root/.npm/_npx/564702c9c9438cd0/node_modules/selenium-webdriver/lib/error.js:523:15)
+    at parseHttpResponse (/root/.npm/_npx/564702c9c9438cd0/node_modules/selenium-webdriver/lib/http.js:524:13)
+    at Executor.execute (/root/.npm/_npx/564702c9c9438cd0/node_modules/selenium-webdriver/lib/http.js:456:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {
+  remoteStacktrace: '#0 0x58607cdcdf5a <unknown>\n' +
+    '#1 0x58607c736499 <unknown>\n' +
+    '#2 0x58607c7733b6 <unknown>\n' +
+    '#3 0x58607c770e5e <unknown>\n' +
+    '#4 0x58607c7c067e <unknown>\n' +
+    '#5 0x58607c7bfd6c <unknown>\n' +
+    '#6 0x58607c77f81b <unknown>\n' +
+    '#7 0x58607c780601 <unknown>\n' +
+    '#8 0x58607cd92120 <unknown>\n' +
+    '#9 0x58607cd9079a <unknown>\n' +
+    '#10 0x58607cd7b4e5 <unknown>\n' +
+    '#11 0x58607cd9145a <unknown>\n' +
+    '#12 0x58607cd647d0 <unknown>\n' +
+    '#13 0x58607cdb9048 <unknown>\n' +
+    '#14 0x58607cdb91e5 <unknown>\n' +
+    '#15 0x58607cdccae3 <unknown>\n' +
+    '#16 0x75bd9f624b84 <unknown>\n' +
+    '#17 0x75bd9f6b1b64 __clone\n'
+}
+Please report the problem to: https://github.com/dequelabs/axe-core-npm/issues/

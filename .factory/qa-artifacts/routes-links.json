@@ -1,0 +1,278 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "title": "Voice Comfort Meter — Compare private voice takes",
+    "h1": [
+      "Compare two voice takes privately"
+    ],
+    "main": 1,
+    "canonical": "https://voice-comfort-meter.sociobot.in/",
+    "links": [
+      {
+        "text": "Skip to content",
+        "href": "https://voice-comfort-meter.sociobot.in/#main",
+        "hash": "#main",
+        "target": true
+      },
+      {
+        "text": "◉ Voice Comfort Meter",
+        "href": "https://voice-comfort-meter.sociobot.in/",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Demo",
+        "href": "https://voice-comfort-meter.sociobot.in/demo",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "How it works",
+        "href": "https://voice-comfort-meter.sociobot.in/#how",
+        "hash": "#how",
+        "target": true
+      },
+      {
+        "text": "Privacy",
+        "href": "https://voice-comfort-meter.sociobot.in/privacy",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Privacy",
+        "href": "https://voice-comfort-meter.sociobot.in/privacy",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Terms",
+        "href": "https://voice-comfort-meter.sociobot.in/terms",
+        "hash": "",
+        "target": null
+      }
+    ]
+  },
+  {
+    "path": "/demo/",
+    "status": 200,
+    "title": "Demo — Voice Comfort Meter",
+    "h1": [
+      "Record two short voice takes"
+    ],
+    "main": 1,
+    "canonical": "https://voice-comfort-meter.sociobot.in/",
+    "links": [
+      {
+        "text": "Skip to content",
+        "href": "https://voice-comfort-meter.sociobot.in/demo/#main",
+        "hash": "#main",
+        "target": true
+      },
+      {
+        "text": "◉ Voice Comfort Meter",
+        "href": "https://voice-comfort-meter.sociobot.in/",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Demo",
+        "href": "https://voice-comfort-meter.sociobot.in/demo",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "How it works",
+        "href": "https://voice-comfort-meter.sociobot.in/demo/#how",
+        "hash": "#how",
+        "target": false
+      },
+      {
+        "text": "Privacy",
+        "href": "https://voice-comfort-meter.sociobot.in/privacy",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Privacy",
+        "href": "https://voice-comfort-meter.sociobot.in/privacy",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Terms",
+        "href": "https://voice-comfort-meter.sociobot.in/terms",
+        "hash": "",
+        "target": null
+      }
+    ]
+  },
+  {
+    "path": "/privacy",
+    "status": 200,
+    "title": "Privacy — Voice Comfort Meter",
+    "h1": [
+      "Your voice stays on your device"
+    ],
+    "main": 1,
+    "canonical": "https://voice-comfort-meter.sociobot.in/",
+    "links": [
+      {
+        "text": "Skip to content",
+        "href": "https://voice-comfort-meter.sociobot.in/privacy#main",
+        "hash": "#main",
+        "target": true
+      },
+      {
+        "text": "◉ Voice Comfort Meter",
+        "href": "https://voice-comfort-meter.sociobot.in/",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Demo",
+        "href": "https://voice-comfort-meter.sociobot.in/demo",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "How it works",
+        "href": "https://voice-comfort-meter.sociobot.in/privacy#how",
+        "hash": "#how",
+        "target": false
+      },
+      {
+        "text": "Privacy",
+        "href": "https://voice-comfort-meter.sociobot.in/privacy",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Privacy",
+        "href": "https://voice-comfort-meter.sociobot.in/privacy",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Terms",
+        "href": "https://voice-comfort-meter.sociobot.in/terms",
+        "hash": "",
+        "target": null
+      }
+    ]
+  },
+  {
+    "path": "/terms",
+    "status": 200,
+    "title": "Terms — Voice Comfort Meter",
+    "h1": [
+      "Use this recording guide responsibly"
+    ],
+    "main": 1,
+    "canonical": "https://voice-comfort-meter.sociobot.in/",
+    "links": [
+      {
+        "text": "Skip to content",
+        "href": "https://voice-comfort-meter.sociobot.in/terms#main",
+        "hash": "#main",
+        "target": true
+      },
+      {
+        "text": "◉ Voice Comfort Meter",
+        "href": "https://voice-comfort-meter.sociobot.in/",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Demo",
+        "href": "https://voice-comfort-meter.sociobot.in/demo",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "How it works",
+        "href": "https://voice-comfort-meter.sociobot.in/terms#how",
+        "hash": "#how",
+        "target": false
+      },
+      {
+        "text": "Privacy",
+        "href": "https://voice-comfort-meter.sociobot.in/privacy",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Privacy",
+        "href": "https://voice-comfort-meter.sociobot.in/privacy",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Terms",
+        "href": "https://voice-comfort-meter.sociobot.in/terms",
+        "hash": "",
+        "target": null
+      }
+    ]
+  },
+  {
+    "path": "/does-not-exist",
+    "status": 404,
+    "title": "Not found — Voice Comfort Meter",
+    "h1": [
+      "This sheet is not on the board"
+    ],
+    "main": 1,
+    "canonical": "https://voice-comfort-meter.sociobot.in/",
+    "links": [
+      {
+        "text": "Skip to content",
+        "href": "https://voice-comfort-meter.sociobot.in/does-not-exist#main",
+        "hash": "#main",
+        "target": true
+      },
+      {
+        "text": "◉ Voice Comfort Meter",
+        "href": "https://voice-comfort-meter.sociobot.in/",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Demo",
+        "href": "https://voice-comfort-meter.sociobot.in/demo",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "How it works",
+        "href": "https://voice-comfort-meter.sociobot.in/does-not-exist#how",
+        "hash": "#how",
+        "target": false
+      },
+      {
+        "text": "Privacy",
+        "href": "https://voice-comfort-meter.sociobot.in/privacy",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Go to the recorder",
+        "href": "https://voice-comfort-meter.sociobot.in/",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Privacy",
+        "href": "https://voice-comfort-meter.sociobot.in/privacy",
+        "hash": "",
+        "target": null
+      },
+      {
+        "text": "Terms",
+        "href": "https://voice-comfort-meter.sociobot.in/terms",
+        "hash": "",
+        "target": null
+      }
+    ]
+  }
+]

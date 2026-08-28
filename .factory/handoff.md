@@ -1,4 +1,53 @@
-# Handoff — Voice Comfort Meter repair
+# Handoff — independent verification 2
+
+## Current release status: FAIL
+
+Candidate `2bd6bb115e6b51f0007d785e2416ae4240d05070` was independently verified on
+2026-08-28 at https://voice-comfort-meter.sociobot.in. The live HTML, JS, CSS,
+service worker, and manifest are byte-for-byte identical to the candidate build,
+so the result is not a stale-deployment failure.
+
+Release blockers found in the shipped product:
+
+- The exact clean-checkout `@claim:take-limit` command failed with `14.9s`
+  instead of `15.0s`; the following full suite failed at `14.8s` (12/13 passed).
+  Duration is derived from animation-frame count and is scheduling-dependent.
+- The strict live CSP blocks every dynamic waveform height. A fresh demo emits
+  40 CSP errors and renders 0/40 bars above 0px, leaving both waveform panels
+  blank. Each retained two-recording flow emitted more than 100 CSP errors.
+- **Keep the quieter take** only displays “Preferred take marked”; it does not
+  mark, save, or restore a preferred take.
+- The demo says “nothing is saved,” but demo mutations persist in the
+  `demo:takes` IndexedDB key after **Start for real** and after returning to Demo.
+  This claim is also absent from `.factory/claims.json` as a persistence claim.
+
+Additional P2 findings: the header’s **How it works** link is dead outside the
+home route; SPA route changes do not focus the new h1; all routes use the home
+canonical; several header/footer mobile targets are below 44px; and the live
+demo’s Lighthouse mobile performance score was 86. The update toast is also
+always visually rendered even when `hidden` and no worker is waiting, so it
+shows a false status and overlays recorder content on mobile. Individual take
+deletion is immediate and has neither confirmation nor undo.
+
+Passing evidence: eight of nine exact claim commands passed after `npm ci`;
+`npm run build` passed; live recording, valid WAV export, permission recovery,
+delete cancellation/confirmation, offline reload, and service-worker update
+activation worked. Request logging found only same-origin GET/HEAD requests and
+no audio upload. Axe found zero violations. Full evidence, hashes, headers,
+severity, and retest scope are in `.factory/verification-2.md`.
+
+Run the automated checks with:
+
+```sh
+npm ci
+npm test
+npm run build
+```
+
+Do not release this candidate until the P1 defects are repaired and independently
+retested.
+
+# Prior repair handoff
 
 ## Offline reload follow-up repair
 

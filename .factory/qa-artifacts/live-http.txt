@@ -1,0 +1,147 @@
+URL /
+HTTP/2 200
+content-type: text/html
+date: Fri, 28 Aug 2026 20:49:02 GMT
+cache-control: public, must-revalidate, max-age=30
+etag: "20079853"
+last-modified: Fri, 28 Aug 2026 20:24:11 GMT
+content-length: 1327
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'
+
+URL /demo/
+HTTP/2 200
+content-type: text/html
+date: Fri, 28 Aug 2026 20:49:02 GMT
+cache-control: public, must-revalidate, max-age=30
+etag: "20079853"
+last-modified: Fri, 28 Aug 2026 20:24:11 GMT
+content-length: 1327
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'
+
+URL /privacy
+HTTP/2 200
+content-type: text/html
+date: Fri, 28 Aug 2026 20:49:02 GMT
+cache-control: public, must-revalidate, max-age=30
+etag: "20079853"
+last-modified: Fri, 28 Aug 2026 20:24:11 GMT
+content-length: 1327
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'
+
+URL /terms
+HTTP/2 200
+content-type: text/html
+date: Fri, 28 Aug 2026 20:49:03 GMT
+cache-control: public, must-revalidate, max-age=30
+etag: "20079853"
+last-modified: Fri, 28 Aug 2026 20:24:11 GMT
+content-length: 1327
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'
+
+URL /manifest.webmanifest
+HTTP/2 200
+content-type: application/manifest+json
+date: Fri, 28 Aug 2026 20:49:03 GMT
+cache-control: public, must-revalidate, max-age=30
+etag: "20079853"
+last-modified: Fri, 28 Aug 2026 20:24:11 GMT
+content-length: 405
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'
+
+URL /sw.js
+HTTP/2 200
+content-type: text/javascript
+date: Fri, 28 Aug 2026 20:49:04 GMT
+cache-control: no-cache, no-store, must-revalidate
+etag: "20079853"
+last-modified: Fri, 28 Aug 2026 20:24:11 GMT
+content-length: 2087
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'
+
+URL /assets/app-BaPZcWr1.js
+HTTP/2 200
+content-type: text/javascript
+date: Fri, 28 Aug 2026 20:49:04 GMT
+cache-control: public, max-age=31536000, immutable
+etag: "20079853"
+last-modified: Fri, 28 Aug 2026 20:24:11 GMT
+content-length: 14870
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'
+
+URL /assets/app-C0OZSqwG.css
+HTTP/2 200
+content-type: text/css
+date: Fri, 28 Aug 2026 20:49:04 GMT
+cache-control: public, max-age=31536000, immutable
+etag: "20079853"
+last-modified: Fri, 28 Aug 2026 20:24:11 GMT
+content-length: 9005
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'
+
+URL /does-not-exist
+HTTP/2 404
+content-type: text/html
+date: Fri, 28 Aug 2026 20:49:04 GMT
+cache-control: public, must-revalidate, max-age=30
+etag: "20079853"
+last-modified: Fri, 28 Aug 2026 20:24:11 GMT
+content-length: 1327
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'
+
+--- LOCAL HASHES ---
+49016de7d7c8ffe115d766850a2f21cf3a75fe24771c189659ff9fa654a91026  dist/index.html
+f85908b8eec73deb6a5c91899735384fd5e2d45e1ef83cb62f6022b1e3a9888a  dist/assets/app-BaPZcWr1.js
+72088db8edc35539c85022af85e5f3c517ae7c3ecb893d4b352f25a75af51814  dist/assets/app-C0OZSqwG.css
+30c9d1752a4fc19563443bf00d3c0aa6a18423651679fd8de79512fcb39656c5  dist/sw.js
+7b810772686cdd367e225f710ae35cfc34174d6b128b8b9b3efcf91b76e4d086  dist/manifest.webmanifest
+--- LIVE HASHES ---
+49016de7d7c8ffe115d766850a2f21cf3a75fe24771c189659ff9fa654a91026  index.html
+f85908b8eec73deb6a5c91899735384fd5e2d45e1ef83cb62f6022b1e3a9888a  assets/app-BaPZcWr1.js
+72088db8edc35539c85022af85e5f3c517ae7c3ecb893d4b352f25a75af51814  assets/app-C0OZSqwG.css
+30c9d1752a4fc19563443bf00d3c0aa6a18423651679fd8de79512fcb39656c5  sw.js
+7b810772686cdd367e225f710ae35cfc34174d6b128b8b9b3efcf91b76e4d086  manifest.webmanifest

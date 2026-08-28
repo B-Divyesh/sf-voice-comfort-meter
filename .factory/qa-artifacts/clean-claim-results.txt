@@ -1,0 +1,191 @@
+CLAIM_START demo-comparison
+
+> voice-comfort-meter@1.0.0 test
+> playwright test --grep @claim:demo-comparison
+
+[WebServer] (node:7639) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:7670) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+(node:7688) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7688) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (7.9s)
+CLAIM_END demo-comparison EXIT=0
+CLAIM_START privacy-local
+
+> voice-comfort-meter@1.0.0 test
+> playwright test --grep @claim:privacy-local
+
+[WebServer] (node:7814) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:7846) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+(node:7864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (7.5s)
+CLAIM_END privacy-local EXIT=0
+CLAIM_START wav-export
+
+> voice-comfort-meter@1.0.0 test
+> playwright test --grep @claim:wav-export
+
+[WebServer] (node:8001) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:8032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+(node:8050) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8050) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (7.5s)
+CLAIM_END wav-export EXIT=0
+CLAIM_START offline-reload
+
+> voice-comfort-meter@1.0.0 test
+> playwright test --grep @claim:offline-reload
+
+[WebServer] (node:8194) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:8225) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+(node:8243) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8243) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (8.1s)
+CLAIM_END offline-reload EXIT=0
+CLAIM_START no-account-payment
+
+> voice-comfort-meter@1.0.0 test
+> playwright test --grep @claim:no-account-payment
+
+[WebServer] (node:8380) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:8411) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+(node:8429) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8429) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (7.6s)
+CLAIM_END no-account-payment EXIT=0
+CLAIM_START microphone-on-record
+
+> voice-comfort-meter@1.0.0 test
+> playwright test --grep @claim:microphone-on-record
+
+[WebServer] (node:8568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:8599) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+(node:8617) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8617) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (7.5s)
+CLAIM_END microphone-on-record EXIT=0
+CLAIM_START take-limit
+
+> voice-comfort-meter@1.0.0 test
+> playwright test --grep @claim:take-limit
+
+[WebServer] (node:8753) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:8784) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+(node:8802) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8802) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+F
+
+  1) tests/app.spec.ts:114:1 › @claim:take-limit A take stops at 15 seconds ────────────────────────
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  locator('.metrics dd').nth(2)
+    Expected: [32m"1[7m5.0[27ms"[39m
+    Received: [31m"1[7m4.9[27ms"[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveText" with timeout 5000ms[22m
+    [2m  - waiting for locator('.metrics dd').nth(2)[22m
+    [2m    9 × locator resolved to <dd>14.9s</dd>[22m
+    [2m      - unexpected value "14.9s"[22m
+
+
+      119 |   await expect(page.getByRole('button', { name: /Stop recording/ })).toBeVisible();
+      120 |   await expect(page.locator('.take-card')).toHaveCount(1, { timeout: 22000 });
+    > 121 |   await expect(page.locator('.metrics dd').nth(2)).toHaveText('15.0s');
+          |                                                    ^
+      122 | });
+      123 |
+      124 | test('@claim:recordings-until-delete Recordings remain after export until deleted', async ({ page }) => {
+        at /tmp/vcm-clean-2bd6/tests/app.spec.ts:121:52
+
+    Error Context: test-results/app--claim-take-limit-A-take-stops-at-15-seconds/error-context.md
+
+  1 failed
+    tests/app.spec.ts:114:1 › @claim:take-limit A take stops at 15 seconds ─────────────────────────
+CLAIM_END take-limit EXIT=1
+CLAIM_START recordings-until-delete
+
+> voice-comfort-meter@1.0.0 test
+> playwright test --grep @claim:recordings-until-delete
+
+[WebServer] (node:8972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:9003) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+(node:9021) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9021) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (8.1s)
+CLAIM_END recordings-until-delete EXIT=0
+CLAIM_START separate-storage
+
+> voice-comfort-meter@1.0.0 test
+> playwright test --grep @claim:separate-storage
+
+[WebServer] (node:9177) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:9209) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+(node:9228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·
+  1 passed (7.9s)
+CLAIM_END separate-storage EXIT=0

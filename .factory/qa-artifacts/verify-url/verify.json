@@ -1,0 +1,14 @@
+{
+  "url": "https://voice-comfort-meter.sociobot.in",
+  "loadMs": 1007,
+  "errors": [],
+  "a11y": {
+    "title": "Voice Comfort Meter — Compare private voice takes",
+    "lang": "en",
+    "h1": 1,
+    "main": true,
+    "imgsMissingAlt": 0,
+    "buttonsUnlabeled": 0,
+    "textLength": 1259
+  }
+}
