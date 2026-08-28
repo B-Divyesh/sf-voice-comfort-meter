@@ -30,10 +30,21 @@ Verification on 2026-08-28 from a fresh `npm ci`:
   privacy request logging, fake-microphone recording, explicit offline reload,
   update policy, and production artifact configuration.
 
-The existing production site was checked before redeployment: `/` returned
-200 with the required CSP; `/does-not-exist` returned real HTTP 404 with the
-required security headers. The repaired `dist/` artifact is deployed after the
-repair commit; live cache/header and browser evidence follows below.
+Repair commit: `cc999ccbec051bab19713295294cd0b400d5324b` (pushed to `main`).
+The repaired `dist/` artifact was deployed to the existing Static Web Apps
+production target on 2026-08-28. Live verification after deployment:
+
+- `https://voice-comfort-meter.sociobot.in/assets/app-BaPZcWr1.js` is byte-for-
+  byte equal to `dist/assets/app-BaPZcWr1.js` (SHA-256
+  `f85908b8eec73deb6a5c91899735384fd5e2d45e1ef83cb62f6022b1e3a9888a`) and
+  returns `Cache-Control: public, max-age=31536000, immutable`.
+- `/` returns 200 with the configured CSP; `/manifest.webmanifest` is
+  `application/manifest+json`; `/sw.js` is no-store; and `/does-not-exist`
+  returns a real HTTP 404.
+- In a fresh live Chromium context, `/demo/` loaded its two cards, reloaded
+  while offline with those two cards still visible, and emitted no page errors.
+  At 390px, the Demo page had its route title, exactly one h1, a main landmark,
+  and 390px document scroll width.
 
 ## Release repair
 
