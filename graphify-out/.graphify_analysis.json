@@ -2,31 +2,32 @@
   "communities": {
     "0": [
       "src_main",
-      "src_main_apppage",
       "src_main_canonical",
-      "src_main_comparison",
-      "src_main_demobanner",
+      "src_main_clear",
+      "src_main_db",
+      "src_main_demo",
       "src_main_download",
-      "src_main_esc",
-      "src_main_facts",
-      "src_main_infopage",
-      "src_main_landing",
-      "src_main_layout",
+      "src_main_key",
+      "src_main_leavedemo",
+      "src_main_load",
       "src_main_makewav",
-      "src_main_notfound",
+      "src_main_navigate",
+      "src_main_removestored",
+      "src_main_render",
       "src_main_route",
       "src_main_samplewav",
+      "src_main_save",
       "src_main_savedscroll",
+      "src_main_seeddemo",
       "src_main_showupdate",
-      "src_main_status",
+      "src_main_startrecord",
+      "src_main_statustext",
       "src_main_take",
       "src_main_takeaudio",
-      "src_main_takecard",
       "src_main_takes",
       "src_main_title",
       "src_main_towav",
-      "src_main_wave",
-      "src_main_workbench"
+      "src_main_wire"
     ],
     "1": [
       "ref_dom",
@@ -66,22 +67,6 @@
       "vite"
     ],
     "3": [
-      "src_main_clear",
-      "src_main_db",
-      "src_main_demo",
-      "src_main_key",
-      "src_main_leavedemo",
-      "src_main_load",
-      "src_main_navigate",
-      "src_main_removestored",
-      "src_main_render",
-      "src_main_save",
-      "src_main_seeddemo",
-      "src_main_startrecord",
-      "src_main_statustext",
-      "src_main_wire"
-    ],
-    "4": [
       "package",
       "package_name",
       "package_private",
@@ -95,7 +80,7 @@
       "package_type",
       "package_version"
     ],
-    "5": [
+    "4": [
       "factory_qa_artifacts_live_qa",
       "factory_qa_artifacts_live_qa_downloadpromise",
       "factory_qa_artifacts_live_qa_errors",
@@ -107,54 +92,71 @@
       "factory_qa_artifacts_live_qa_report",
       "factory_qa_artifacts_live_qa_requests"
     ],
-    "6": [
-      "test",
-      "tests_app_spec",
-      "tests_app_spec_clearappstorage",
-      "tests_app_spec_idbkeys",
-      "tests_app_spec_idbvalue",
-      "tests_app_spec_recordshorttake"
+    "5": [
+      "src_main_apppage",
+      "src_main_comparison",
+      "src_main_demobanner",
+      "src_main_facts",
+      "src_main_infopage",
+      "src_main_landing",
+      "src_main_layout",
+      "src_main_notfound",
+      "src_main_workbench"
     ],
-    "7": [
+    "6": [
       "factory_qa_artifacts_repair_live_check",
       "factory_qa_artifacts_repair_live_check_errors",
       "factory_qa_artifacts_repair_live_check_preferred",
       "factory_qa_artifacts_repair_live_check_report",
       "factory_qa_artifacts_repair_live_check_requests"
     ],
+    "7": [
+      "tests_app_spec",
+      "tests_app_spec_clearappstorage",
+      "tests_app_spec_idbkeys",
+      "tests_app_spec_idbvalue",
+      "tests_app_spec_recordshorttake"
+    ],
     "8": [
+      "src_main_esc",
+      "src_main_status",
+      "src_main_takecard",
+      "src_main_wave"
+    ],
+    "9": [
       "factory_qa_artifacts_repair_update_check",
       "factory_qa_artifacts_repair_update_check_server"
     ],
-    "9": [
+    "10": [
       "public_sw",
       "public_sw_fromcurrentcache"
     ],
-    "10": [
+    "11": [
       "vite_config",
       "vite_config_staticroutes"
     ],
-    "11": [
+    "12": [
       "eslint_config"
     ],
-    "12": [
+    "13": [
       "playwright_config"
     ]
   },
   "cohesion": {
-    "0": 0.13230769230769232,
+    "0": 0.17094017094017094,
     "1": 0.1111111111111111,
     "2": 0.13333333333333333,
-    "3": 0.2857142857142857,
-    "4": 0.16666666666666666,
-    "5": 0.2,
-    "6": 0.3333333333333333,
+    "3": 0.16666666666666666,
+    "4": 0.2,
+    "5": 0.2777777777777778,
+    "6": 0.4,
     "7": 0.4,
-    "8": 1.0,
+    "8": 0.6666666666666666,
     "9": 1.0,
     "10": 1.0,
     "11": 1.0,
-    "12": 1.0
+    "12": 1.0,
+    "13": 1.0
   },
   "gods": [
     {
@@ -173,19 +175,24 @@
       "degree": 10
     },
     {
-      "id": "package_scripts",
-      "label": "scripts",
+      "id": "src_main_save",
+      "label": "save()",
       "degree": 7
     },
     {
-      "id": "src_main_save",
-      "label": "save()",
+      "id": "package_scripts",
+      "label": "scripts",
       "degree": 7
     },
     {
       "id": "src_main_landing",
       "label": "landing()",
       "degree": 6
+    },
+    {
+      "id": "src_main_apppage",
+      "label": "appPage()",
+      "degree": 5
     },
     {
       "id": "src_main_layout",
@@ -201,24 +208,30 @@
       "id": "src_main_workbench",
       "label": "workbench()",
       "degree": 5
-    },
-    {
-      "id": "src_main_apppage",
-      "label": "appPage()",
-      "degree": 5
     }
   ],
   "surprises": [
     {
-      "source": "demoBanner()",
-      "target": "demo()",
+      "source": "workbench()",
+      "target": "takeCard()",
+      "source_files": [
+        "src/main.ts",
+        "src/main.ts"
+      ],
+      "confidence": "INFERRED",
+      "relation": "indirect_call",
+      "note": "Bridges community 8 \u2192 community 5"
+    },
+    {
+      "source": "render()",
+      "target": "appPage()",
       "source_files": [
         "src/main.ts",
         "src/main.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "note": "Bridges community 3 \u2192 community 0"
+      "note": "Bridges community 5 \u2192 community 0"
     }
   ],
   "tokens": {
