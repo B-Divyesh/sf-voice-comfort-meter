@@ -38,7 +38,36 @@ function comparison() { const [a,b] = takes; const quietest = a.noise <= b.noise
 function appPage() { return layout(`${demoBanner()}<section class="app-intro"><p class="eyebrow">Local recorder</p><h1>Record two short voice takes</h1><p>Compare simple level and room-noise marks before you keep one.</p></section><section class="workbench">${workbench()}</section><section class="guidance"><h2>Three setup prompts</h2><ul><li>Keep your mouth about a hand’s width from the microphone.</li><li>Record the same line for each take.</li><li>Change one thing before the second take.</li></ul></section>`); }
 function infoPage(kind: 'privacy' | 'terms') { const privacy = kind === 'privacy'; const body = privacy ? `<h1>Your voice stays on your device</h1><p>Voice Comfort Meter stores recordings in this browser only. It does not upload audio or use analytics.</p><h2>What is stored</h2><p>Your recording files and the simple marks shown beside them stay in this browser. Delete a take or clear browser site data to remove them.</p><h2>Permissions</h2><p>The app asks for microphone permission only after you press Record. You can change that permission in your browser.</p>` : `<h1>Use this recording guide responsibly</h1><p>Voice Comfort Meter gives simple recording guidance. It does not assess voice quality, hearing, or health.</p><h2>Your recordings</h2><p>Your recordings stay in this browser until you delete them.</p><h2>No warranty</h2><p>This free tool is provided as-is. Check your equipment and recording environment before important work.</p>`; return layout(`<article class="legal">${body}</article>`); }
 function notFound() { return layout(`<section class="not-found"><p class="eyebrow">404 / LOST PAGE</p><h1>This sheet is not on the board</h1><p>Try the recorder or return to the home sheet.</p><a class="primary link-button" href="/" data-link>Go to the recorder</a></section>`); }
-async function render(focusHeading=false, hash='', restoreScroll?:number) { const inMemory=takes;try { await load(); if(demo() && demoSeededInMemory && takes.length===0 && inMemory.length)takes=inMemory; } catch { if(!demoSeededInMemory)takes=[]; } if (demo() && takes.length === 0 && !demoSeededInMemory) { await seedDemo(focusHeading, hash, restoreScroll); return; } const r = route(); document.title = title(r); document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.setAttribute('href', canonical(r)); app.innerHTML = r === '/' ? landing() : r === '/demo' ? appPage() : r === '/privacy' || r === '/terms' ? infoPage(r.slice(1) as 'privacy'|'terms') : notFound(); const heading=document.querySelector<HTMLElement>('h1')!; heading.tabIndex=-1; document.querySelector('.route-note')!.textContent = heading.textContent || ''; wire(); requestAnimationFrame(() => { if(focusHeading)heading.focus({preventScroll:true}); if(hash){document.querySelector<HTMLElement>(hash)?.scrollIntoView();}else if(restoreScroll!==undefined){scrollTo(0,restoreScroll);}else if(focusHeading){scrollTo(0,0);} }); }
+async function render(focusHeading=false, hash='', restoreScroll?:number) {
+  // A direct /demo visit has no browser event that means IndexedDB seeding is
+  // finished. Publish a real readiness boundary only after the sample write
+  // and the matching render have both completed; this is also useful to any
+  // embedding smoke test without exposing storage implementation details.
+  const renderingDemo = demo();
+  if (renderingDemo) {
+    app.dataset.demoReady = 'loading';
+    app.setAttribute('aria-busy', 'true');
+  } else {
+    delete app.dataset.demoReady;
+    app.removeAttribute('aria-busy');
+  }
+  const inMemory=takes;
+  try { await load(); if(demo() && demoSeededInMemory && takes.length===0 && inMemory.length)takes=inMemory; } catch { if(!demoSeededInMemory)takes=[]; }
+  if (demo() && takes.length === 0 && !demoSeededInMemory) { await seedDemo(focusHeading, hash, restoreScroll); return; }
+  const r = route();
+  document.title = title(r);
+  document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.setAttribute('href', canonical(r));
+  app.innerHTML = r === '/' ? landing() : r === '/demo' ? appPage() : r === '/privacy' || r === '/terms' ? infoPage(r.slice(1) as 'privacy'|'terms') : notFound();
+  if (renderingDemo && demo()) {
+    app.dataset.demoReady = 'true';
+    app.removeAttribute('aria-busy');
+  }
+  const heading=document.querySelector<HTMLElement>('h1')!;
+  heading.tabIndex=-1;
+  document.querySelector('.route-note')!.textContent = heading.textContent || '';
+  wire();
+  requestAnimationFrame(() => { if(focusHeading)heading.focus({preventScroll:true}); if(hash){document.querySelector<HTMLElement>(hash)?.scrollIntoView();}else if(restoreScroll!==undefined){scrollTo(0,restoreScroll);}else if(focusHeading){scrollTo(0,0);} });
+}
 function sampleWav(freq: number) { const rate=16000, secs=3, samples=rate*secs, data=new Float32Array(samples); for(let i=0;i<samples;i++){ const gate=(Math.sin(i/(rate*.3))>.1?1:.25); data[i]=Math.sin(2*Math.PI*freq*i/rate)*(.14+(.22*Math.abs(Math.sin(i/450))))*gate; } return makeWav(data,rate); }
 function makeWav(data: Float32Array, rate: number) { const b=new ArrayBuffer(44+data.length*2), v=new DataView(b); const text=(o:number,s:string)=>[...s].forEach((c,i)=>v.setUint8(o+i,c.charCodeAt(0))); text(0,'RIFF');v.setUint32(4,36+data.length*2,true);text(8,'WAVE');text(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,rate,true);v.setUint32(28,rate*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);text(36,'data');v.setUint32(40,data.length*2,true);data.forEach((x,i)=>v.setInt16(44+i*2,Math.max(-1,Math.min(1,x))*0x7fff,true));return new Blob([b],{type:'audio/wav'}); }
 async function seedDemo(focusHeading=false, hash='', restoreScroll?:number) {

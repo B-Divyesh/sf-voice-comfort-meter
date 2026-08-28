@@ -166,6 +166,10 @@ test('@claim:recordings-until-delete Recordings remain after export until delete
 
 test('@claim:separate-storage Demo and real takes use separate storage namespaces', async ({ page }) => {
   await page.goto('/demo');
+  // This is the regression for verifier-3's clean-suite race: direct demo
+  // navigation is not ready until its sample transaction has committed.
+  await expect(page.locator('#app')).toHaveAttribute('data-demo-ready', 'true');
+  await expect(page.locator('.take-card')).toHaveCount(2);
   expect(await idbKeys(page)).toEqual(['demo:takes']);
   await page.goto('/');
   await recordShortTake(page);
@@ -261,6 +265,8 @@ test('production artifact ships deployment config, static routes, hashes, and up
   expect(config.responseOverrides['404'].rewrite).toBe('/404.html');
   expect(config.mimeTypes['.webmanifest']).toBe('application/manifest+json');
   expect(config.globalHeaders['Content-Security-Policy']).toContain("default-src 'self'");
+  expect(config.globalHeaders['Content-Security-Policy']).toContain("frame-ancestors 'self'");
+  expect(config.globalHeaders['X-Frame-Options']).toBe('SAMEORIGIN');
   for (const route of ['demo', 'privacy', 'terms']) {
     const html = await readFile(join(root, route, 'index.html'), 'utf8');
     expect(html).toContain(`https://voice-comfort-meter.sociobot.in/${route}/`);
