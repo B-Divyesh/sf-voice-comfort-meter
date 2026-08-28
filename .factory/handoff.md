@@ -1,51 +1,26 @@
-# Handoff — independent verification 4
+# Handoff — adversarial first-read review 1
 
-## Status: PASS
+## Status: FAIL
 
-Candidate `c229141d2aa71a81ad1c29ce99e2b36fd6e5e4b8` is accepted for
-`https://voice-comfort-meter.sociobot.in`. The deployed HTML, app JS/CSS,
-service worker, and manifest hash-identically to this candidate; this is not a
-deployment-only failure.
+This reviewer made documentation-only changes: .factory/review-1.md records the full independent review. No product source, dependencies, or deployment configuration was changed.
 
-## What was independently verified
+## What was verified
 
-- Clean install: `npm ci` (105 packages; 0 audit vulnerabilities).
-- Quality gates: `npm run typecheck`, `npm run lint`, `npm run build`, and
-  `npm test` all pass; the complete Playwright suite is 16/16.
-- All 11 exact tests in `.factory/claims.json` pass from the production build
-  and demo entry point: demo data, local-only traffic, WAV export, offline
-  reload, no account/payment, mic timing, 15-second limit, persistence and
-  deletion, separate demo/real namespaces, preferred take persistence, and
-  demo discard.
-- Live product: cold first-read wording and one-click demo, desktop and 390px
-  mobile, keyboard skip/focus, visible focus, reduced motion, denied-mic
-  recovery, WAV export, service-worker control/update check/offline reload,
-  zero console/page errors, and no serious/critical axe findings.
-- Privacy: browser logging observed only same-origin GET/HEAD traffic. There
-  are no uploads, analytics, third-party scripts, accounts, payment, backend,
-  runtime AI, or sign-in.
-- Live response headers/routing/caching pass. Lighthouse mobile scored 95
-  Performance, 100 Accessibility, 100 Best Practices, and 100 SEO; initial JS
-  is 6.55 KiB gzip and CSS 3.03 KiB gzip.
+- Fresh local clone: npm ci, every exact declared claim command, npm test (16/16), npm run typecheck, npm run lint, and npm run build passed.
+- Fresh live desktop and 390px contexts clearly state the job, audience, and Try it with sample data action; the one-click sandbox, reset, isolated storage/discard path, heading focus, back navigation, offline reload, live request log, routing, headers, metadata, link crawl, and mobile targets pass.
+- Every finding in the four earlier verification reports was rechecked against live behavior and code; the previous defects remain fixed.
 
-## How to run and verify
+## Blocking gap and next steps
 
-```sh
-npm ci
-npm run typecheck
-npm run lint
-npm run build
-npm test
-npm run preview
-```
+The sample cards look plausible but their playable/exported audio is generated single-frequency sine tones, not realistic spoken voice takes. This fails the one-click demo requirement for a voice-comparison product. Ship two original, offline bundled spoken WAV samples in the demo namespace and test that those assets are what Play/Export use. Then address the four minor copy/claim findings listed in review-1.md and rerun this review from a clean clone.
 
-Open `/demo/` or use **Try it with sample data** on `/`. The demo uses the
-isolated `demo:takes` IndexedDB key. **Start for real** deletes demo state and
-uses `real:takes`; recordings stay local until deletion.
+## How to reproduce
 
-## Known limits / next steps
+    npm ci
+    npm test
+    npm run typecheck
+    npm run lint
+    npm run build
+    npm run preview
 
-The readings are recording cues only, not calibrated voice, hearing, or health
-assessments. Browser recording codecs vary, though supported takes export as
-WAV. There are no open verification defects. Full evidence is in
-`.factory/verification-4.md`.
+Open /demo/, press Play take, and inspect src/main.ts sampleWav() to confirm the current generated-tone behavior. The review report includes the claim commands and live verification scope.
