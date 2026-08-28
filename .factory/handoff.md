@@ -50,7 +50,17 @@ npm run build
 
 ## Deployment and live identity
 
-Deploy `dist/` with `/opt/fleet/lib/deploy-static.sh voice-comfort-meter dist`. The final live hashes, headers, route status, screenshots, and identity result are recorded below after deployment.
+Repair commit `2e39f9bbbd13e41c7f8df61df0b9b5949b9079a4` was pushed to `origin/main`. Its `dist/` artifact was deployed with `/opt/fleet/lib/deploy-static.sh voice-comfort-meter dist`; Azure deployment `6e5de0de-013d-44c8-8e67-61ba729840da` succeeded at the existing Static Web App and custom domain.
+
+Post-deploy evidence:
+
+- `/` and `/demo/` return 200 with the strict CSP, HSTS, `Referrer-Policy`, and `X-Content-Type-Options`; `/does-not-exist` returns a real HTTP 404.
+- The manifest returns `application/manifest+json`; `/sw.js` is `no-cache, no-store`; the hashed JS is `public, max-age=31536000, immutable`.
+- Live and local SHA-256 values are byte-identical: `index.html` `333492f0…c4ef`; JS `37ecb594…9cc4`; CSS `90ec791f…6e1`; service worker `b5e4cd8d…abc8`; manifest `0a2f7973…e19`.
+- The live 390px probe found two cards, 40 non-zero waveform bars, zero console/page errors, no small touch targets, correct Demo canonical/title, hidden update toast, a restored preferred take, focused h1 after Start for real, no `demo:takes` key after exit, and two cards after an offline reload. All recorded requests were same-origin GETs.
+- The live URL verifier passed `/demo/` at desktop and 390px with one h1, `lang=en`, main landmark, named buttons, and zero console errors.
+
+Evidence: `qa-artifacts/repair-live-http.txt`, `repair-live-identity.txt`, `repair-live-check.mjs`, `repair-live-check.json`, and `repair-live-verify/`.
 
 ## Known limitations
 
