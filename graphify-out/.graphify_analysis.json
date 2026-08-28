@@ -141,8 +141,13 @@
       "degree": 6
     },
     {
-      "id": "package_scripts",
-      "label": "scripts",
+      "id": "src_main_seeddemo",
+      "label": "seedDemo()",
+      "degree": 5
+    },
+    {
+      "id": "src_main_startrecord",
+      "label": "startRecord()",
       "degree": 5
     },
     {
@@ -151,18 +156,13 @@
       "degree": 5
     },
     {
-      "id": "src_main_takecard",
-      "label": "takeCard()",
-      "degree": 5
-    },
-    {
       "id": "src_main_workbench",
       "label": "workbench()",
       "degree": 5
     },
     {
-      "id": "src_main_apppage",
-      "label": "appPage()",
+      "id": "src_main_takecard",
+      "label": "takeCard()",
       "degree": 5
     }
   ],
@@ -176,7 +176,7 @@
       ],
       "confidence": "INFERRED",
       "relation": "indirect_call",
-      "note": "Bridges community 6 \u2192 community 5"
+      "note": "Bridges community 5 \u2192 community 6"
     },
     {
       "source": "key()",
@@ -187,7 +187,29 @@
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "note": "Bridges community 7 \u2192 community 1"
+      "note": "Bridges community 1 \u2192 community 7"
+    },
+    {
+      "source": "render()",
+      "target": "infoPage()",
+      "source_files": [
+        "src/main.ts",
+        "src/main.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 1 \u2192 community 3"
+    },
+    {
+      "source": "render()",
+      "target": "landing()",
+      "source_files": [
+        "src/main.ts",
+        "src/main.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 1 \u2192 community 5"
     },
     {
       "source": "appPage()",
@@ -199,28 +221,6 @@
       "confidence": "EXTRACTED",
       "relation": "calls",
       "note": "Bridges community 3 \u2192 community 7"
-    },
-    {
-      "source": "landing()",
-      "target": "layout()",
-      "source_files": [
-        "src/main.ts",
-        "src/main.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "note": "Bridges community 3 \u2192 community 5"
-    },
-    {
-      "source": "landing()",
-      "target": "demoBanner()",
-      "source_files": [
-        "src/main.ts",
-        "src/main.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "note": "Bridges community 7 \u2192 community 5"
     }
   ],
   "tokens": {
