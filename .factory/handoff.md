@@ -28,8 +28,9 @@ vulnerabilities):
   produced `dist/`; app JS is 16.63 kB (6.55 kB gzip) and CSS 9.61 kB
   (3.03 kB gzip).
 - `npm test` passed **16/16**. A three-repeat full-suite stress run completed
-  **48/48**. The repaired `@claim:separate-storage` command passed, including
-  a 12-repeat pre-fix baseline and post-fix readiness regression.
+  **48/48**. The verifier's direct-IndexedDB timing window was removed by the
+  explicit readiness boundary; the repaired `@claim:separate-storage` test
+  immediately reads the committed key after that boundary.
 - Every exact command listed in `.factory/claims.json` passed independently:
   all 11 claims cover demo comparison, local-only requests, WAV export,
   offline reload, no account/payment, permission timing, 15-second limit,
@@ -50,9 +51,23 @@ vulnerabilities):
 
 ## Deploy and live checks
 
-Pending the repair commit and static deployment. After deployment, verify the
-live custom domain for byte identity, `frame-ancestors`, `X-Frame-Options`,
-PWA/offline behavior, desktop/mobile console errors, and route status.
+Repair commit `e45aa9438d1eee7b2e72b38d5a0c7760f13586cb` was pushed to
+`origin/main` and deployed with `/opt/fleet/lib/deploy-static.sh
+voice-comfort-meter dist`. Azure deployment
+`bec824e2-f3d2-44fd-94ce-f17a75d7c99d` succeeded at the existing static site
+and custom domain.
+
+- `https://voice-comfort-meter.sociobot.in/demo/` returns 200 with CSP
+  `frame-ancestors 'self'`, `X-Frame-Options: SAMEORIGIN`, HSTS, strict
+  referrer policy, and `X-Content-Type-Options: nosniff`.
+- Local and live `assets/app-PRMEQSII.js` are byte-identical SHA-256:
+  `6ded9d4f0e0d7536a44ebf567604810447c5308872329a94167fd5f90c6501ca`.
+- The live URL verifier passed on `/demo/`: title, `lang=en`, one h1, main
+  landmark, alt coverage, named buttons, and zero console/page errors.
+- A fresh browser checked desktop and 390×844 mobile: two demo cards, no
+  horizontal overflow, zero undersized visible targets, skip-link then main
+  focus, only same-origin GET/HEAD requests, and a two-card service-worker
+  offline reload.
 
 ## Known product limits
 
