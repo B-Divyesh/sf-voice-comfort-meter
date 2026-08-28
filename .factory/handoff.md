@@ -34,6 +34,7 @@ Deployed production on 2026-08-28 with Azure Static Web Apps CLI from the verifi
 - `/assets/app-Bjyq4PuW.js` returns `Cache-Control: public, max-age=31536000, immutable`.
 - `/does-not-exist` returns real `404` while serving the designed app not-found document.
 - `/demo/` returns `200` with the same CSP.
+- Live Chromium smoke passed at 1280px and 390px: `/demo/` has the Demo title, one h1, main landmark, two sample cards, no page errors, and no horizontal overflow.
 
 ## Known limitations
 
