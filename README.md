@@ -1,12 +1,12 @@
 # Voice Comfort Meter
 
-Compare two private voice takes and see simple recording guidance. It is for podcasters, singers, and speakers who want a calmer way to choose a recording setup.
+Compare two private voice takes and see simple recording guidance. For podcasters, singers, and speakers choosing between two recording setups.
 
 No audio is uploaded. Recordings stay in this browser until you delete them. This is recording guidance, not a voice-quality, hearing, or health assessment.
 
 ## Try the sample
 
-Open `/demo` or run the app and choose **Try it with sample data**. The two sample WAV takes are isolated in the `demo:takes` IndexedDB key. **Start for real** discards that demo state. The real recorder uses a separate `real:takes` key.
+Open `/demo` or run the app and choose **Try it with sample data**. Two bundled spoken WAV clips of the same line are isolated in the `demo:takes` IndexedDB key. **Start for real** discards that demo state. The real recorder uses a separate `real:takes` key.
 
 ## Run locally
 

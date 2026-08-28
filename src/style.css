@@ -500,6 +500,12 @@ h3 {
 .app-intro p {
   max-width: 620px;
 }
+.load-error {
+  color: var(--paper) !important;
+  border-left: 4px solid var(--rose);
+  padding: 12px 16px;
+  background: #3d2439;
+}
 .guidance {
   padding-top: 0;
   margin-bottom: 45px;

@@ -30,3 +30,7 @@ The hero uses a generated editorial illustration of a tabletop microphone, headp
 **Prompt sheet:** blue blueprint drafting sheet, tabletop recording setup, one simple microphone and headphones, pale cyan technical grid, warm orange tape markers, paper texture, editorial illustration, no people, no brand marks, no text, no watermark. Wide composition, dark navy ground, useful negative space.
 
 **Provenance:** Generated with the factory image deployment via `/opt/fleet/lib/gen-image.sh` on 2026-08-28. Original product artwork; no third-party asset license required. Optimised WebP is shipped in `public/art/`.
+
+## Demo audio provenance
+
+`public/demo/desk-distance.wav` and `public/demo/one-hand-closer.wav` are original spoken test fixtures generated offline on 2026-08-28 with eSpeak NG and rendered to PCM WAV. Both say the on-screen prompt; the desk-distance version is quieter with a subtle room reflection and the close version is clearer. They are local product assets, not fetched at runtime, and are precached by the service worker.

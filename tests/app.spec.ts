@@ -50,6 +50,25 @@ async function clearAppStorage(page: import('@playwright/test').Page) {
   });
 }
 
+async function wavDetails(page: import('@playwright/test').Page, path: string) {
+  return page.evaluate(async samplePath => {
+    const bytes = new Uint8Array(await (await fetch(samplePath)).arrayBuffer());
+    const text = (start: number, length: number) => String.fromCharCode(...bytes.slice(start, start + length));
+    const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    const audio = new AudioContext();
+    const decoded = await audio.decodeAudioData(bytes.buffer.slice(0));
+    await audio.close();
+    const fingerprint = bytes.reduce((hash, value) => Math.imul(hash ^ value, 16777619) >>> 0, 2166136261).toString(16);
+    return {
+      riff: text(0, 4),
+      wave: text(8, 4),
+      sampleRate: view.getUint32(24, true),
+      duration: decoded.duration,
+      fingerprint
+    };
+  }, path);
+}
+
 async function recordShortTake(page: import('@playwright/test').Page) {
   await page.context().grantPermissions(['microphone'], { origin: 'http://127.0.0.1:4173' });
   await page.getByRole('button', { name: /Record take 1/ }).click();
@@ -80,6 +99,68 @@ test('@claim:demo-comparison Shows two sample takes right away', async ({ page }
   await expect(page.locator('.wave svg')).toHaveCount(2);
   expect(await page.locator('.wave rect').evaluateAll(rects => rects.every(rect => rect.getBoundingClientRect().height > 0))).toBeTruthy();
   expect(errors).toEqual([]);
+});
+
+test('query demo entry is isolated and has banner controls', async ({ page }) => {
+  await page.goto('/?demo=1');
+  await expect(page).toHaveTitle('Demo — Voice Comfort Meter');
+  await expect(page.locator('.take-card')).toHaveCount(2);
+  await expect(page.getByRole('complementary', { name: 'Demo mode' })).toContainText('Demo — sample changes are discarded');
+  await expect(page.getByRole('button', { name: 'Reset demo' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Start for real' })).toBeVisible();
+  expect(await idbKeys(page)).toEqual(['demo:takes']);
+});
+
+test('@claim:bundled-spoken-samples Demo plays bundled spoken WAV samples', async ({ page }) => {
+  await page.addInitScript(() => {
+    const played: string[] = [];
+    Object.defineProperty(window, '__playedAudio', { value: played });
+    window.Audio = function(source?: string) {
+      return { src: source ?? '', play: () => { played.push(source ?? ''); return Promise.resolve(); } } as unknown as HTMLAudioElement;
+    } as unknown as typeof Audio;
+  });
+  await page.goto('/demo/');
+  await expect(page.locator('#app')).toHaveAttribute('data-demo-ready', 'true');
+  const desk = await wavDetails(page, '/demo/desk-distance.wav');
+  const closer = await wavDetails(page, '/demo/one-hand-closer.wav');
+  for (const sample of [desk, closer]) {
+    expect(sample.riff).toBe('RIFF');
+    expect(sample.wave).toBe('WAVE');
+    expect(sample.sampleRate).toBe(16000);
+    expect(sample.duration).toBeGreaterThan(2.5);
+  }
+  expect(desk.fingerprint).not.toEqual(closer.fingerprint);
+  await page.getByRole('button', { name: 'Play take' }).first().click();
+  const playedFingerprint = await page.evaluate(async () => {
+    const [url] = (window as unknown as { __playedAudio: string[] }).__playedAudio;
+    const bytes = new Uint8Array(await (await fetch(url)).arrayBuffer());
+    return bytes.reduce((hash, value) => Math.imul(hash ^ value, 16777619) >>> 0, 2166136261).toString(16);
+  });
+  expect(playedFingerprint).toBe(desk.fingerprint);
+  const storedFingerprint = await page.evaluate(async () => {
+    const db = await new Promise<IDBDatabase>((resolve, reject) => {
+      const request = indexedDB.open('voice-comfort-meter');
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+    const records = await new Promise<Array<{ id: string; blob: Blob }>>((resolve, reject) => {
+      const request = db.transaction('takes').objectStore('takes').get('demo:takes');
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+    db.close();
+    const bytes = new Uint8Array(await records.find(record => record.id === 'sample-1')!.blob.arrayBuffer());
+    return bytes.reduce((hash, value) => Math.imul(hash ^ value, 16777619) >>> 0, 2166136261).toString(16);
+  });
+  expect(storedFingerprint).toBe(desk.fingerprint);
+});
+
+test('@claim:comparison-marks Demo shows level and room-noise marks', async ({ page }) => {
+  await page.goto('/demo/');
+  await expect(page.locator('.take-card')).toHaveCount(2);
+  await expect(page.locator('.take-card').first().getByText('Level', { exact: true })).toBeVisible();
+  await expect(page.locator('.take-card').first().getByText('Room noise', { exact: true })).toBeVisible();
+  await expect(page.getByText(/has a stronger level.*less room noise/i)).toBeVisible();
 });
 
 test('@claim:privacy-local Audio stays on this device', async ({ page }) => {
@@ -277,4 +358,6 @@ test('production artifact ships deployment config, static routes, hashes, and up
   const worker = await readFile(join(root, 'sw.js'), 'utf8');
   expect(worker).not.toContain('__BUILD_ID__');
   expect(worker).toContain("'skip-waiting'");
+  expect(worker).toContain('"/demo/desk-distance.wav"');
+  expect(worker).toContain('"/demo/one-hand-closer.wav"');
 });

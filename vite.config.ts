@@ -12,9 +12,9 @@ function staticRoutes(): Plugin {
       const outDir = join(process.cwd(), 'dist');
       const index = await readFile(join(outDir, 'index.html'), 'utf8');
       const routeMeta = {
-        demo: { title: 'Demo — Voice Comfort Meter', canonical: 'https://voice-comfort-meter.sociobot.in/demo/' },
-        privacy: { title: 'Privacy — Voice Comfort Meter', canonical: 'https://voice-comfort-meter.sociobot.in/privacy/' },
-        terms: { title: 'Terms — Voice Comfort Meter', canonical: 'https://voice-comfort-meter.sociobot.in/terms/' }
+        demo: { title: 'Demo — Voice Comfort Meter', description: 'Try two local sample voice takes without saving anything to your recordings.', canonical: 'https://voice-comfort-meter.sociobot.in/demo/' },
+        privacy: { title: 'Privacy — Voice Comfort Meter', description: 'Learn how Voice Comfort Meter keeps your recordings in your browser.', canonical: 'https://voice-comfort-meter.sociobot.in/privacy/' },
+        terms: { title: 'Terms — Voice Comfort Meter', description: 'Read the limits and terms for Voice Comfort Meter recording guidance.', canonical: 'https://voice-comfort-meter.sociobot.in/terms/' }
       } as const;
       for (const route of Object.keys(routeMeta) as Array<keyof typeof routeMeta>) {
         const folder = join(outDir, route);
@@ -22,20 +22,30 @@ function staticRoutes(): Plugin {
         const meta = routeMeta[route];
         await writeFile(join(folder, 'index.html'), index
           .replace(/<title>.*?<\/title>/, `<title>${meta.title}</title>`)
-          .replace(/<link rel="canonical" href="[^"]+"\s*\/>/, `<link rel="canonical" href="${meta.canonical}" />`));
+          .replace(/<link rel="canonical" href="[^"]+"\s*\/>/, `<link rel="canonical" href="${meta.canonical}" />`)
+          .replace(/<meta name="description" content="[^"]+"\s*\/>/, `<meta name="description" content="${meta.description}" />`)
+          .replace(/<meta property="og:title" content="[^"]+"\s*\/>/, `<meta property="og:title" content="${meta.title}" />`)
+          .replace(/<meta property="og:description" content="[^"]+"\s*\/>/, `<meta property="og:description" content="${meta.description}" />`)
+          .replace(/<meta name="twitter:title" content="[^"]+"\s*\/>/, `<meta name="twitter:title" content="${meta.title}" />`)
+          .replace(/<meta name="twitter:description" content="[^"]+"\s*\/>/, `<meta name="twitter:description" content="${meta.description}" />`));
       }
       // Static Web Apps rewrites genuine misses to this document while keeping
       // the original URL. The client then renders its designed not-found page.
       await writeFile(join(outDir, '404.html'), index
-        .replace(/<title>.*?<\/title>/, '<title>Not found — Voice Comfort Meter</title>')
-        .replace(/<link rel="canonical" href="[^"]+"\s*\/>/, '<link rel="canonical" href="https://voice-comfort-meter.sociobot.in/404/" />'));
+        .replace(/<title>.*?<\/title>/, '<title>Page not found — Voice Comfort Meter</title>')
+        .replace(/<link rel="canonical" href="[^"]+"\s*\/>/, '<link rel="canonical" href="https://voice-comfort-meter.sociobot.in/404/" />')
+        .replace(/<meta name="description" content="[^"]+"\s*\/>/, '<meta name="description" content="The requested Voice Comfort Meter page was not found." />')
+        .replace(/<meta property="og:title" content="[^"]+"\s*\/>/, '<meta property="og:title" content="Page not found — Voice Comfort Meter" />')
+        .replace(/<meta property="og:description" content="[^"]+"\s*\/>/, '<meta property="og:description" content="The requested Voice Comfort Meter page was not found." />')
+        .replace(/<meta name="twitter:title" content="[^"]+"\s*\/>/, '<meta name="twitter:title" content="Page not found — Voice Comfort Meter" />')
+        .replace(/<meta name="twitter:description" content="[^"]+"\s*\/>/, '<meta name="twitter:description" content="The requested Voice Comfort Meter page was not found." />'));
 
       const assets = (await readdir(join(outDir, 'assets'))).sort();
       const buildId = createHash('sha256').update(assets.join('|')).digest('hex').slice(0, 12);
       const shell = [
         '/', '/index.html', '/demo/', '/privacy/', '/terms/', '/404.html',
         '/offline.html', '/manifest.webmanifest', '/icon.svg',
-        '/art/blueprint-hero.webp', ...assets.map((asset: string) => `/assets/${asset}`)
+        '/art/blueprint-hero.webp', '/demo/desk-distance.wav', '/demo/one-hand-closer.wav', ...assets.map((asset: string) => `/assets/${asset}`)
       ];
       const template = await readFile(join(outDir, 'sw.js'), 'utf8');
       await writeFile(join(outDir, 'sw.js'), template
