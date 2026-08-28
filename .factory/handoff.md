@@ -1,41 +1,32 @@
-# Handoff — Voice Comfort Meter
+# Handoff — Voice Comfort Meter repair
 
-## Independent verification status — FAIL (2026-08-28)
+## Release repair
 
-Candidate `1ecfe0092be235667733013eba4a6ce569b7b025` was independently verified
-against https://voice-comfort-meter.sociobot.in. The deployed JS, CSS and service
-worker byte-match a fresh build of that candidate. The product and all four
-declared claim tests work, but this is **not releasable**: live responses lack the
-required Content-Security-Policy, unknown routes return HTTP 200 rather than a real
-404, and visitor-facing claims are missing mandatory entries/tests in
-`.factory/claims.json`. See `.factory/verification.md` for exact commands,
-evidence, severity, and required retest steps. P2 follow-ups are undersized mobile
-touch targets and missing PWA update/immutable-cache behavior.
+Repaired the release blockers reported against candidate `1ecfe0092be235667733013eba4a6ce569b7b025`:
 
-## What shipped
+- Static Web Apps configuration is now emitted in `dist/staticwebapp.config.json`, with CSP, security headers, manifest MIME type, immutable hashed-asset caching, a non-cached service worker, and a real 404 response override.
+- Known app routes are emitted as real static documents (`/demo/`, `/privacy/`, `/terms/`). There is no SPA navigation fallback, so unknown paths reach the host 404 override instead of returning HTTP 200.
+- JS/CSS filenames are content-hashed. The generated worker uses a matching versioned cache, only reads its own cache (never a prior release cache), provides offline navigation fallback, and supports a visible update prompt that activates the waiting worker on explicit reload.
+- Every verifier-identified visitor claim is now in `.factory/claims.json` with a unique executable regression test. The offline claim now performs an actual offline reload.
+- At 390px, Reset demo, Start for real, delete, Play, and Export controls measure at least 44×44 CSS px.
+- The landing action now seeds demo data even when entered from the landing page. `/demo/` is handled as demo mode as well as `/demo`.
 
-- A local-first, two-take voice recorder with a 15-second limit, playback, local deletion, and WAV export.
-- Simple waveform, level, and room-noise comparison language. It explicitly avoids voice-quality, hearing, and health judgments.
-- `/demo` provides two realistic sample WAV takes in the isolated `demo:takes` IndexedDB namespace. Real recordings use `real:takes`.
-- A hand-written PWA manifest and service worker cache the shell, the original blueprint recording illustration, and sample demo flow for use after the first visit.
-- `/privacy`, `/terms`, a styled 404 destination, metadata, sitemap, robots, CSP/security headers, responsive mobile layout, and keyboard focus behavior.
-
-## Run and verify
+## Verify locally
 
 ```sh
-npm install
+npm ci
 npm test
 npm run build
 ```
 
-`npm test` passed on 2026-08-28: 5/5 Playwright tests. The tests cover the demo comparison, same-origin-only demo traffic, WAV download, cached offline shell, and skip-link keyboard route. `npm run build` passed and creates `dist/index.html`.
+`npm test` passed on 2026-08-28: **13/13 Playwright tests**. It includes all ten claims; fake-microphone recording, 15-second automatic stop, persistence/deletion, IndexedDB namespace isolation, desktop and 390px checks, keyboard skip-link coverage, actual offline reload, production-artifact configuration checks, and axe-core WCAG 2/2.1/2.2 A/AA scans on `/`, `/demo/`, `/privacy`, and `/terms` (zero serious/critical findings).
 
-Lighthouse (mobile simulation) on 2026-08-28 scored 99 Performance and 100 Accessibility. Browser smoke check at 390px passed: one h1, main landmark, `lang="en"`, expected title, and no console errors. Production JS is 13.99 KB (5.66 KB gzip); CSS is 8.68 KB (2.81 KB gzip); hero WebP is 70 KB. The generated social card is 1200×630 and 62 KB.
+`npm run build` passed on 2026-08-28 and writes `dist/index.html`, route documents, `staticwebapp.config.json`, hashed JS/CSS, manifest, and the generated service worker. Current build output is 14.87 KB JS (5.96 KB gzip) and 9.01 KB CSS (2.88 KB gzip).
 
-## Known gap
+## Deploy
 
-The level and room-noise marks are deliberately simple recording cues, not calibrated measurements. The browser chooses the recording codec; the app converts supported recordings to WAV at export time.
+Deploy the generated `dist/` directory as the existing static Static Web Apps artifact. No secrets or runtime services are required. After deployment, verify live CSP, `application/manifest+json`, immutable `/assets/*` headers, and an HTTP 404 at an unknown route; these settings are now part of the emitted artifact rather than only the source tree.
 
-## Next step
+## Known limitations
 
-Deploy `dist/` as the static artifact. No environment variables or external services are needed.
+Level and room-noise marks remain simple recording cues, not calibrated measurements. Browser recording codecs vary; supported recordings are converted to WAV during export.

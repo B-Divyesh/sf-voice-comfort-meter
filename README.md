@@ -2,7 +2,7 @@
 
 Compare two private voice takes and see simple recording guidance. It is for podcasters, singers, and speakers who want a calmer way to choose a recording setup.
 
-No audio is uploaded. Recordings remain in this browser until you export or delete them. This is recording guidance, not a voice-quality, hearing, or health assessment.
+No audio is uploaded. Recordings stay in this browser until you delete them. This is recording guidance, not a voice-quality, hearing, or health assessment.
 
 ## Try the sample
 
