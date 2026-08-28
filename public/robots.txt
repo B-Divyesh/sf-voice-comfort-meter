@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://voice-comfort-meter.sociobot.in/sitemap.xml

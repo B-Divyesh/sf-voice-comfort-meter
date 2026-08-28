@@ -1,0 +1,6 @@
+[
+  {"id":"demo-comparison","claim":"Shows two sample voice takes right away","where":"landing action, demo","test":"npm test -- --grep @claim:demo-comparison","sandbox":"fresh browser context; open /demo; assert two take cards and comparison guidance"},
+  {"id":"privacy-local","claim":"Audio stays on this device","where":"landing facts, privacy page","test":"npm test -- --grep @claim:privacy-local","sandbox":"fresh browser context; record all requests during demo; assert every request is same-origin"},
+  {"id":"wav-export","claim":"Exports a take as WAV","where":"take card","test":"npm test -- --grep @claim:wav-export","sandbox":"fresh browser context; demo; click Export WAV; assert a .wav download begins"},
+  {"id":"offline-reload","claim":"Use it after the first visit","where":"landing facts","test":"npm test -- --grep @claim:offline-reload","sandbox":"fresh browser context; visit /demo, wait for service worker, set offline, reload; assert two sample takes"}
+]

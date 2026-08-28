@@ -1,14 +1,29 @@
 # Voice Comfort Meter
 
-Live: https://voice-comfort-meter.sociobot.in — built by the Param Factory (`pwa-offline`).
+Compare two private voice takes and see simple recording guidance. It is for podcasters, singers, and speakers who want a calmer way to choose a recording setup.
 
-See `.factory/brief.json` for the researched problem this solves and `.factory/design.md` for the visual system.
+No audio is uploaded. Recordings remain in this browser until you export or delete them. This is recording guidance, not a voice-quality, hearing, or health assessment.
 
-## Develop
+## Try the sample
 
-```
+Open `/demo` or run the app and choose **Try it with sample data**. The two sample WAV takes are isolated in the `demo:takes` IndexedDB key. The real recorder uses a separate `real:takes` key.
+
+## Run locally
+
+```sh
 npm install
 npm run dev
-npm test
-npm run build   # -> dist/
 ```
+
+## Test and build
+
+```sh
+npm test
+npm run build # creates ./dist with index.html at its root
+```
+
+Deploy `dist/` as a static site. The included service worker enables the cached app shell offline after the first visit.
+
+## Privacy and terms
+
+See `/privacy` and `/terms` in the app. This project is released under the MIT license.

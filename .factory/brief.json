@@ -1,0 +1,7 @@
+{
+  "slug": "voice-comfort-meter",
+  "title": "Voice Comfort Meter",
+  "artifact_class": "pwa-offline",
+  "summary": "Compare two private voice takes and see simple recording guidance.",
+  "monetization": "free"
+}
