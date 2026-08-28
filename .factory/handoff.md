@@ -1,5 +1,17 @@
 # Handoff — Voice Comfort Meter
 
+## Independent verification status — FAIL (2026-08-28)
+
+Candidate `1ecfe0092be235667733013eba4a6ce569b7b025` was independently verified
+against https://voice-comfort-meter.sociobot.in. The deployed JS, CSS and service
+worker byte-match a fresh build of that candidate. The product and all four
+declared claim tests work, but this is **not releasable**: live responses lack the
+required Content-Security-Policy, unknown routes return HTTP 200 rather than a real
+404, and visitor-facing claims are missing mandatory entries/tests in
+`.factory/claims.json`. See `.factory/verification.md` for exact commands,
+evidence, severity, and required retest steps. P2 follow-ups are undersized mobile
+touch targets and missing PWA update/immutable-cache behavior.
+
 ## What shipped
 
 - A local-first, two-take voice recorder with a 15-second limit, playback, local deletion, and WAV export.
