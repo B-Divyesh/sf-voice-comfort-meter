@@ -27,6 +27,14 @@ npm run build
 
 Deploy the generated `dist/` directory as the existing static Static Web Apps artifact. No secrets or runtime services are required. After deployment, verify live CSP, `application/manifest+json`, immutable `/assets/*` headers, and an HTTP 404 at an unknown route; these settings are now part of the emitted artifact rather than only the source tree.
 
+Deployed production on 2026-08-28 with Azure Static Web Apps CLI from the verified `dist/` artifact. Repair code commit: `a1e34476b1cfce3f7f67718c2f19dfec8b5fc9d9`. Live verification at `https://voice-comfort-meter.sociobot.in` recorded:
+
+- `/` returns `200` with the expected CSP and `Last-Modified: 19:46:51 GMT`.
+- `/manifest.webmanifest` returns `application/manifest+json`.
+- `/assets/app-Bjyq4PuW.js` returns `Cache-Control: public, max-age=31536000, immutable`.
+- `/does-not-exist` returns real `404` while serving the designed app not-found document.
+- `/demo/` returns `200` with the same CSP.
+
 ## Known limitations
 
 Level and room-noise marks remain simple recording cues, not calibrated measurements. Browser recording codecs vary; supported recordings are converted to WAV during export.
