@@ -1,0 +1,230 @@
+{
+  "communities": {
+    "0": [
+      "ref_dom",
+      "ref_dom_iterable",
+      "ref_es2022",
+      "ref_src",
+      "ref_tests",
+      "ref_vite_config_ts",
+      "tsconfig",
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_allowimportingtsextensions",
+      "tsconfig_compileroptions_lib",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_moduleresolution",
+      "tsconfig_compileroptions_noemit",
+      "tsconfig_compileroptions_skiplibcheck",
+      "tsconfig_compileroptions_strict",
+      "tsconfig_compileroptions_target",
+      "tsconfig_compileroptions_usedefineforclassfields",
+      "tsconfig_include"
+    ],
+    "1": [
+      "src_main_clear",
+      "src_main_db",
+      "src_main_download",
+      "src_main_key",
+      "src_main_load",
+      "src_main_makewav",
+      "src_main_navigate",
+      "src_main_render",
+      "src_main_samplewav",
+      "src_main_save",
+      "src_main_seeddemo",
+      "src_main_startrecord",
+      "src_main_statustext",
+      "src_main_title",
+      "src_main_towav",
+      "src_main_wire"
+    ],
+    "2": [
+      "package",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_preview",
+      "package_scripts_test",
+      "package_type",
+      "package_version"
+    ],
+    "3": [
+      "src_main",
+      "src_main_infopage",
+      "src_main_layout",
+      "src_main_notfound",
+      "src_main_route",
+      "src_main_savedscroll",
+      "src_main_take",
+      "src_main_takes"
+    ],
+    "4": [
+      "package_devdependencies",
+      "package_devdependencies_playwright_test",
+      "package_devdependencies_typescript",
+      "package_devdependencies_vite",
+      "playwright_test",
+      "typescript",
+      "vite"
+    ],
+    "5": [
+      "src_main_comparison",
+      "src_main_facts",
+      "src_main_landing",
+      "src_main_workbench"
+    ],
+    "6": [
+      "src_main_esc",
+      "src_main_status",
+      "src_main_takecard",
+      "src_main_wave"
+    ],
+    "7": [
+      "src_main_apppage",
+      "src_main_demo",
+      "src_main_demobanner"
+    ],
+    "8": [
+      "public_sw",
+      "public_sw_shell"
+    ],
+    "9": [
+      "playwright_config"
+    ],
+    "10": [
+      "tests_app_spec"
+    ],
+    "11": [
+      "vite_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.1111111111111111,
+    "1": 0.21666666666666667,
+    "2": 0.2,
+    "3": 0.32142857142857145,
+    "4": 0.2857142857142857,
+    "5": 0.5,
+    "6": 0.6666666666666666,
+    "7": 0.6666666666666666,
+    "8": 1.0,
+    "9": 1.0,
+    "10": 1.0,
+    "11": 1.0
+  },
+  "gods": [
+    {
+      "id": "src_main_render",
+      "label": "render()",
+      "degree": 12
+    },
+    {
+      "id": "src_main_wire",
+      "label": "wire()",
+      "degree": 10
+    },
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 10
+    },
+    {
+      "id": "src_main_save",
+      "label": "save()",
+      "degree": 7
+    },
+    {
+      "id": "src_main_landing",
+      "label": "landing()",
+      "degree": 6
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 5
+    },
+    {
+      "id": "src_main_layout",
+      "label": "layout()",
+      "degree": 5
+    },
+    {
+      "id": "src_main_takecard",
+      "label": "takeCard()",
+      "degree": 5
+    },
+    {
+      "id": "src_main_workbench",
+      "label": "workbench()",
+      "degree": 5
+    },
+    {
+      "id": "src_main_apppage",
+      "label": "appPage()",
+      "degree": 5
+    }
+  ],
+  "surprises": [
+    {
+      "source": "workbench()",
+      "target": "takeCard()",
+      "source_files": [
+        "src/main.ts",
+        "src/main.ts"
+      ],
+      "confidence": "INFERRED",
+      "relation": "indirect_call",
+      "note": "Bridges community 6 \u2192 community 5"
+    },
+    {
+      "source": "key()",
+      "target": "demo()",
+      "source_files": [
+        "src/main.ts",
+        "src/main.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 7 \u2192 community 1"
+    },
+    {
+      "source": "appPage()",
+      "target": "layout()",
+      "source_files": [
+        "src/main.ts",
+        "src/main.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 3 \u2192 community 7"
+    },
+    {
+      "source": "landing()",
+      "target": "layout()",
+      "source_files": [
+        "src/main.ts",
+        "src/main.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 3 \u2192 community 5"
+    },
+    {
+      "source": "landing()",
+      "target": "demoBanner()",
+      "source_files": [
+        "src/main.ts",
+        "src/main.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 7 \u2192 community 5"
+    }
+  ],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}
