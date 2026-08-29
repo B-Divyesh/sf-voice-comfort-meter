@@ -8,35 +8,35 @@
 
 | Finding | Change made | Evidence |
 | --- | --- | --- |
-| F-2-1 | Demo now renders the two sample cards and their comparison before the recording panel. The 390px first viewport has the Desk distance card and both Level and Room noise marks; the disabled recording action is below the sample evidence. | `@claim:demo-comparison` (clean clone); [390px local demo](/work/repo/.factory/qa-artifacts/polish-2/local-mobile-demo.png); live cold `/demo/` check recorded below. |
-| F-2-2 | The Desk distance fixture now visibly reads **Room noise: noticeable** and One hand closer reads **low**. The conclusion therefore follows from the displayed marks: “Take 2 has less room noise.” | `@claim:comparison-marks` (clean clone); [390px local demo](/work/repo/.factory/qa-artifacts/polish-2/local-mobile-demo.png); live `/demo/` check recorded below. |
-| F-2-3 | Renamed the banner action and documentation to **Discard demo and record**. It deletes demo changes, returns to the real recorder, and does not change real recordings. | `@claim:demo-discard` (clean clone); live `/demo/` check recorded below. |
+| F-2-1 | Demo now renders the two sample cards and their comparison before the recording panel. The 390px first viewport has the Desk distance card and both Level and Room noise marks; the disabled recording action is below the sample evidence. | `@claim:demo-comparison` (clean clone); [390px live demo](/work/repo/.factory/qa-artifacts/polish-2/live-mobile-demo.png); live cold `/demo/` shows Desk distance y=477–794 and both marks y=678. |
+| F-2-2 | The Desk distance fixture now visibly reads **Room noise: noticeable** and One hand closer reads **low**. The conclusion therefore follows from the displayed marks: “Take 2 has less room noise.” | `@claim:comparison-marks` (clean clone); [live evidence](/work/repo/.factory/qa-artifacts/polish-2/live-check.json); live `/demo/` passes. |
+| F-2-3 | Renamed the banner action and documentation to **Discard demo and record**. It deletes demo changes, returns to the real recorder, and does not change real recordings. | `@claim:demo-discard` (clean clone); live `/demo/` has exactly one named control. |
 | F-2-4 | Replaced the README’s IndexedDB key explanation with the useful guarantee: demo clips remain separate, and leaving the demo deletes only demo changes. Implementation-key detail remains only in `.factory/demo.md`. | README review; `@claim:demo-discard` (clean clone). |
 
 ## Earlier findings retained and rechecked
 
 | Finding | Change retained | Evidence |
 | --- | --- | --- |
-| F-1-1 | Bundled original spoken WAV clips are precached, seeded into `demo:takes`, and used for playback/export. | `@claim:bundled-spoken-samples` (clean clone); live `/demo/` check recorded below. |
-| F-1-2 | Landing and README use the same podcasters, singers, and speakers audience sentence. | `.factory/copy-audit.md`; live `/` cold check recorded below. |
-| F-1-3 | Useful headings remain: Record and compare takes, Record a take, and Private voice-take comparison. | `.factory/copy-audit.md`; live `/` check recorded below. |
-| F-1-4 | The real 404 has h1 **Page not found** and a recorder recovery link. | Full route test; live missing-route check recorded below. |
+| F-1-1 | Bundled original spoken WAV clips are precached, seeded into `demo:takes`, and used for playback/export. | `@claim:bundled-spoken-samples` (clean clone); live `/demo/` request log is same-origin only. |
+| F-1-2 | Landing and README use the same podcasters, singers, and speakers audience sentence. | `.factory/copy-audit.md`; cold live `/` output in [live evidence](/work/repo/.factory/qa-artifacts/polish-2/live-check.json). |
+| F-1-3 | Useful headings remain: Record and compare takes, Record a take, and Private voice-take comparison. | `.factory/copy-audit.md`; live `/` passes `/opt/fleet/lib/verify-url.sh`. |
+| F-1-4 | The real 404 has h1 **Page not found** and a recorder recovery link. | Full route test; live `/does-not-exist` is HTTP 404. |
 | F-1-5 | The comparison marks are a listed claim with an observable semantic test. | `@claim:comparison-marks` (clean clone). |
-| verification P1 — security/HTTP | Static route files, real 404 override, manifest MIME, CSP response header, and `X-Frame-Options` remain in the built artifact. | `production artifact ships deployment config, static routes, hashes, and update policy`; live headers/routes check recorded below. |
+| verification P1 — security/HTTP | Static route files, real 404 override, manifest MIME, CSP response header, and `X-Frame-Options` remain in the built artifact. | `production artifact ships deployment config, static routes, hashes, and update policy`; live `/does-not-exist` is 404 and all five checked routes send CSP plus `SAMEORIGIN`. |
 | verification P1 — claims | The inventory has 13 claims, each with exactly one tagged Playwright test. | All 13 exact commands from `.factory/claims.json` passed in a clean clone. |
-| verification P2 — mobile targets | Controls retain 44px minimum targets with no 390px overflow. | `mobile controls meet the 44px touch-target baseline`; live mobile check recorded below. |
-| verification P2 — PWA policy | Versioned precache, offline reload, immutable hashed assets, and update path remain. | `@claim:offline-reload`; production-artifact test; live offline check recorded below. |
+| verification P2 — mobile targets | Controls retain 44px minimum targets with no 390px overflow. | `mobile controls meet the 44px touch-target baseline`; live mobile check passes. |
+| verification P2 — PWA policy | Versioned precache, offline reload, immutable hashed assets, and update path remain. | `@claim:offline-reload`; production-artifact test; live offline reload returned two cards. |
 | verification-2 P1 — take limit | The recorder stops at exactly 15.0 seconds. | `@claim:take-limit` (clean clone). |
 | verification-2 P1 — CSP waveforms | SVG waveforms render under strict CSP without console errors. | `@claim:demo-comparison`; axe/full suite. |
 | verification-2 P1 — preferred take | The quieter choice remains visibly marked after reload. | `@claim:preferred-take` (clean clone). |
 | verification-2 P1 — demo persistence | Demo reset/exit stays isolated from real recordings. | `@claim:separate-storage`, `@claim:demo-discard` (clean clone). |
-| verification-2 P2 — routing/accessibility | Route titles, canonicals, focus restoration, and back/anchor behavior remain covered. | `cross-route anchors, focus, canonicals, update state, and deletion are correct`; live route check recorded below. |
+| verification-2 P2 — routing/accessibility | Route titles, canonicals, focus restoration, and back/anchor behavior remain covered. | `cross-route anchors, focus, canonicals, update state, and deletion are correct`; live `/`, `/demo/`, `/privacy/`, `/terms/`, and `/does-not-exist` checks passed. |
 | verification-2 P2 — target size | All visible mobile controls stay at least 44×44px. | `mobile controls meet the 44px touch-target baseline`. |
 | verification-2 P2 — performance | Product JavaScript is 6.86 KiB gzip and CSS is 3.12 KiB gzip. | clean-clone `npm run build`. |
 | verification-2 P2 — update toast | The update toast stays hidden unless a worker is waiting. | `cross-route anchors, focus, canonicals, update state, and deletion are correct`. |
 | verification-2 P2 — deletion | Individual deletion has a specific browser confirmation. | `cross-route anchors, focus, canonicals, update state, and deletion are correct`. |
 | verification-3 P1 — storage race | Demo readiness is published only after seeding; direct demo storage test is stable. | `@claim:separate-storage` and full 19-test suite (clean clone). |
-| verification-3 P2 — clickjacking | CSP `frame-ancestors 'self'` and `X-Frame-Options: SAMEORIGIN` remain configured. | production-artifact test; live headers check recorded below. |
+| verification-3 P2 — clickjacking | CSP `frame-ancestors 'self'` and `X-Frame-Options: SAMEORIGIN` remain configured. | production-artifact test; live headers on all checked routes. |
 | verification-4 | Its no-defect result was rechecked through the full suite and all declared claims. | clean clone results below. |
 
 ## Clean-clone verification
@@ -47,4 +47,10 @@ The full `npm test` suite passed (19/19). `npm run typecheck` and `npm run lint`
 
 ## Post-deploy live check
 
-After push/deploy, a cold browser check must confirm `/`, `/demo/`, `/privacy/`, `/terms/`, and a missing route; the 390×844 demo evidence; headers; offline reload; request privacy; and `/opt/fleet/lib/verify-url.sh`. Exact live evidence is added to the handoff after that check.
+Static deployment `7c994fde-0c13-4f1a-b5fa-80e86bc931ee` succeeded. Cold live verification against `https://voice-comfort-meter.sociobot.in` then passed:
+
+- `/opt/fleet/lib/verify-url.sh` passed `/` and `/demo/`: correct titles, `lang=en`, one h1, main landmark, image alts, named buttons, and no page or console errors. Desktop/mobile screenshots are in `live-home/` and `live-demo/`.
+- A new 390×844 context opened `/`, used **Try it with sample data**, and showed the complete Desk distance card at y=477–794 with both marks at y=678. Its visible marks were **noticeable** and **low**, and the conclusion said Take 2 has less room noise. [Screenshot](/work/repo/.factory/qa-artifacts/polish-2/live-mobile-demo.png) · [full data](/work/repo/.factory/qa-artifacts/polish-2/live-check.json).
+- Service-worker-controlled offline reload of `/demo/` retained two sample cards. The observed flow made only same-origin GET requests; there were no console errors.
+- `/`, `/demo/`, `/privacy/`, and `/terms/` returned 200; `/does-not-exist` returned 404. Every checked response supplied the expected CSP including `frame-ancestors 'self'` and `X-Frame-Options: SAMEORIGIN`.
+- Live Playwright axe found zero serious or critical violations at desktop and 390×844 on `/`, `/demo/`, `/privacy/`, and `/terms/`.

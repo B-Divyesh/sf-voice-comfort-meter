@@ -1,0 +1,272 @@
+{
+  "home": {
+    "title": "Voice Comfort Meter — Compare private voice takes",
+    "headline": "Compare two voice takes privately",
+    "audience": "For podcasters, singers, and speakers choosing between two recording setups."
+  },
+  "demo": {
+    "url": "https://voice-comfort-meter.sociobot.in/demo/",
+    "title": "Demo — Voice Comfort Meter",
+    "deskBounds": {
+      "x": 35,
+      "y": 477.078125,
+      "width": 320,
+      "height": 316.953125
+    },
+    "deskLevelBounds": {
+      "x": 51,
+      "y": 678.078125,
+      "width": 92,
+      "height": 16.796875
+    },
+    "deskRoomNoiseBounds": {
+      "x": 149,
+      "y": 678.078125,
+      "width": 92,
+      "height": 16.796875
+    },
+    "deskRoomNoise": "noticeable",
+    "closerRoomNoise": "low",
+    "comparison": "Take 2 has a stronger level. Take 2 has less room noise. Pick the one that feels easiest to hear.",
+    "discardControl": 1
+  },
+  "offline": {
+    "cards": 2,
+    "url": "https://voice-comfort-meter.sociobot.in/demo/"
+  },
+  "routes": {
+    "/": {
+      "status": 200,
+      "expected": 200,
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'",
+      "xFrameOptions": "SAMEORIGIN"
+    },
+    "/demo/": {
+      "status": 200,
+      "expected": 200,
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'",
+      "xFrameOptions": "SAMEORIGIN"
+    },
+    "/privacy/": {
+      "status": 200,
+      "expected": 200,
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'",
+      "xFrameOptions": "SAMEORIGIN"
+    },
+    "/terms/": {
+      "status": 200,
+      "expected": 200,
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'",
+      "xFrameOptions": "SAMEORIGIN"
+    },
+    "/does-not-exist": {
+      "status": 404,
+      "expected": 404,
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'",
+      "xFrameOptions": "SAMEORIGIN"
+    }
+  },
+  "privacyRequests": [
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-JAYbFpBj.js",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-I4jAL-J7.css",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/art/blueprint-hero.webp",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/demo/desk-distance.wav",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/demo/one-hand-closer.wav",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/demo/",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-JAYbFpBj.js",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-I4jAL-J7.css",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/demo/",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-JAYbFpBj.js",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-I4jAL-J7.css",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-JAYbFpBj.js",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-I4jAL-J7.css",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/art/blueprint-hero.webp",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/demo/",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-JAYbFpBj.js",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-I4jAL-J7.css",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/privacy/",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-JAYbFpBj.js",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-I4jAL-J7.css",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/terms/",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-JAYbFpBj.js",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-I4jAL-J7.css",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-JAYbFpBj.js",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-I4jAL-J7.css",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/art/blueprint-hero.webp",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/demo/",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-JAYbFpBj.js",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-I4jAL-J7.css",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/privacy/",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-JAYbFpBj.js",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-I4jAL-J7.css",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/terms/",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-JAYbFpBj.js",
+      "method": "GET",
+      "sameOrigin": true
+    },
+    {
+      "url": "https://voice-comfort-meter.sociobot.in/assets/app-I4jAL-J7.css",
+      "method": "GET",
+      "sameOrigin": true
+    }
+  ],
+  "consoleErrors": [],
+  "axe": {
+    "desktop:/": [],
+    "desktop:/demo/": [],
+    "desktop:/privacy/": [],
+    "desktop:/terms/": [],
+    "mobile:/": [],
+    "mobile:/demo/": [],
+    "mobile:/privacy/": [],
+    "mobile:/terms/": []
+  }
+}

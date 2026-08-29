@@ -1,6 +1,6 @@
 # Handoff — Polish 2
 
-## Status: repair verified locally; pending live deployment check
+## Status: complete
 
 The product repair is commit `b759e54ecea94c54a72a1ca7fe65a3105a6b1016`. It resolves every F-2-1 through F-2-4 finding and retains the repairs for every prior review/verification finding. The complete finding-by-finding matrix is `.factory/polish-2.md`.
 
@@ -21,7 +21,12 @@ The product repair is commit `b759e54ecea94c54a72a1ca7fe65a3105a6b1016`. It reso
 
 ## Deployment / live verification
 
-Push the committed repair to `main` to invoke the configured static deployment, then run the live cold/browser/offline/header/route checks listed in `.factory/polish-2.md`. Add the resulting live URL evidence here before final handoff.
+Deployment `7c994fde-0c13-4f1a-b5fa-80e86bc931ee` succeeded through `/opt/fleet/lib/deploy-static.sh voice-comfort-meter dist`. The live URL serves repaired bundle `assets/app-JAYbFpBj.js`.
+
+- `/opt/fleet/lib/verify-url.sh` passed live `/` and `/demo/` with no console errors and required document semantics.
+- A cold 390×844 live browser used the landing action and showed the full first sample card from y=477 to y=794, including Level and Room noise marks at y=678. Desk distance showed **noticeable**, One hand closer **low**, and the conclusion correctly said Take 2 has less room noise. [Live screenshot](/work/repo/.factory/qa-artifacts/polish-2/live-mobile-demo.png) · [live report](/work/repo/.factory/qa-artifacts/polish-2/live-check.json).
+- The live service-worker offline reload retained both sample cards; the logged flow made only same-origin GET requests. Live axe reported zero serious/critical violations across `/`, `/demo/`, `/privacy/`, and `/terms/` at desktop and mobile.
+- Live status/header check: `/`, `/demo/`, `/privacy/`, `/terms/` = 200; `/does-not-exist` = 404; all include the CSP with `frame-ancestors 'self'` and `X-Frame-Options: SAMEORIGIN`.
 
 ## Repository state
 
