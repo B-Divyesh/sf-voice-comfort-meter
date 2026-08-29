@@ -10,7 +10,7 @@ The product repair is commit `b759e54ecea94c54a72a1ca7fe65a3105a6b1016`. It reso
 - The visible demo marks now say Desk distance: **noticeable** room noise; One hand closer: **low** room noise, which supports the conclusion.
 - The demo exit control is **Discard demo and record** everywhere it is visitor-facing.
 - README demo copy explains the user outcome instead of storage keys.
-- The two affected claim tests now assert the mobile viewport and exact visible semantic comparison. The catalog sentence is verb-first and 53 characters.
+- The two affected claim tests now assert the mobile viewport and exact visible semantic comparison. The catalog sentence is verb-first, nine words, and 56 characters.
 
 ## Local evidence
 
