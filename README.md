@@ -6,7 +6,7 @@ No audio is uploaded. Recordings stay in this browser until you delete them. Thi
 
 ## Try the sample
 
-Open `/demo` or run the app and choose **Try it with sample data**. Two bundled spoken WAV clips of the same line are isolated in the `demo:takes` IndexedDB key. **Start for real** discards that demo state. The real recorder uses a separate `real:takes` key.
+Open `/demo` or run the app and choose **Try it with sample data**. The demo keeps its two bundled spoken clips separate from your recordings. **Discard demo and record** deletes demo changes but keeps your recordings.
 
 ## Run locally
 

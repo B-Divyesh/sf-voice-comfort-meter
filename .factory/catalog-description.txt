@@ -1,1 +1,1 @@
-Compare two voice takes privately and choose a recording setup.
+Compare private voice takes to choose a recording setup.

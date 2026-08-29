@@ -91,10 +91,14 @@ test('@claim:demo-comparison Shows two sample takes right away', async ({ page }
       }
     });
   });
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await page.getByRole('button', { name: 'Try it with sample data' }).click();
   await expect(page.getByText('Demo — sample changes are discarded')).toBeVisible();
   await expect(page.locator('.take-card')).toHaveCount(2);
+  await expect(page.locator('.take-card').first()).toBeInViewport();
+  await expect(page.locator('.take-card').first().getByText('Level', { exact: true })).toBeInViewport();
+  await expect(page.locator('.take-card').first().getByText('Room noise', { exact: true })).toBeInViewport();
   await expect(page.getByRole('heading', { name: 'Look for the setup you prefer' })).toBeVisible();
   await expect(page.locator('.wave svg')).toHaveCount(2);
   expect(await page.locator('.wave rect').evaluateAll(rects => rects.every(rect => rect.getBoundingClientRect().height > 0))).toBeTruthy();
@@ -107,7 +111,7 @@ test('query demo entry is isolated and has banner controls', async ({ page }) =>
   await expect(page.locator('.take-card')).toHaveCount(2);
   await expect(page.getByRole('complementary', { name: 'Demo mode' })).toContainText('Demo — sample changes are discarded');
   await expect(page.getByRole('button', { name: 'Reset demo' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Start for real' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Discard demo and record' })).toBeVisible();
   expect(await idbKeys(page)).toEqual(['demo:takes']);
 });
 
@@ -158,9 +162,13 @@ test('@claim:bundled-spoken-samples Demo plays bundled spoken WAV samples', asyn
 test('@claim:comparison-marks Demo shows level and room-noise marks', async ({ page }) => {
   await page.goto('/demo/');
   await expect(page.locator('.take-card')).toHaveCount(2);
-  await expect(page.locator('.take-card').first().getByText('Level', { exact: true })).toBeVisible();
-  await expect(page.locator('.take-card').first().getByText('Room noise', { exact: true })).toBeVisible();
-  await expect(page.getByText(/has a stronger level.*less room noise/i)).toBeVisible();
+  const desk = page.locator('.take-card').filter({ has: page.getByRole('heading', { name: 'Desk distance' }) });
+  const closer = page.locator('.take-card').filter({ has: page.getByRole('heading', { name: 'One hand closer' }) });
+  await expect(desk.getByText('Level', { exact: true })).toBeVisible();
+  await expect(desk.getByText('Room noise', { exact: true })).toBeVisible();
+  await expect(desk.locator('.metrics').getByText('noticeable', { exact: true })).toBeVisible();
+  await expect(closer.locator('.metrics').getByText('low', { exact: true })).toBeVisible();
+  await expect(page.getByText('Take 2 has a stronger level. Take 2 has less room noise. Pick the one that feels easiest to hear.')).toBeVisible();
 });
 
 test('@claim:privacy-local Audio stays on this device', async ({ page }) => {
@@ -272,12 +280,12 @@ test('@claim:preferred-take The quieter choice persists after reload', async ({ 
   await expect(page.getByRole('button', { name: 'Quieter take kept' })).toBeDisabled();
 });
 
-test('@claim:demo-discard Demo changes are discarded on Start for real', async ({ page }) => {
+test('@claim:demo-discard Demo changes are discarded when you discard the demo and record', async ({ page }) => {
   await page.goto('/demo/');
   page.once('dialog', dialog => dialog.accept());
   await page.getByRole('button', { name: 'Delete Desk distance' }).click();
   await expect(page.locator('.take-card')).toHaveCount(1);
-  await page.getByRole('button', { name: 'Start for real' }).click();
+  await page.getByRole('button', { name: 'Discard demo and record' }).click();
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
   expect(await idbKeys(page)).not.toContain('demo:takes');
