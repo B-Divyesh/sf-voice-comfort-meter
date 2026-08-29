@@ -1,20 +1,26 @@
-# Handoff — adversarial first-read review 1
+# Handoff — Polish 1
 
-## Status: FAIL
+## Status: PASS
 
-This reviewer made documentation-only changes: .factory/review-1.md records the full independent review. No product source, dependencies, or deployment configuration was changed.
+Repair commits `1d2c1b6`, `b4c5be9`, and `77a0375` repaired the reviewed candidate. Production was deployed through the Static Web Apps work-order target `sf-voice-comfort-meter` from the final clean-clone `dist/`.
 
-## What was verified
+## What changed
 
-- Fresh local clone: npm ci, every exact declared claim command, npm test (16/16), npm run typecheck, npm run lint, and npm run build passed.
-- Fresh live desktop and 390px contexts clearly state the job, audience, and Try it with sample data action; the one-click sandbox, reset, isolated storage/discard path, heading focus, back navigation, offline reload, live request log, routing, headers, metadata, link crawl, and mobile targets pass.
-- Every finding in the four earlier verification reports was rechecked against live behavior and code; the previous defects remain fixed.
+- The demo now ships two local spoken WAV fixtures, precaches them, copies their bytes into `demo:takes`, and uses those bytes for Play and Export. The sine-wave fallback is removed.
+- `/?demo=1` now resolves directly into the isolated demo screen with its persistent banner, Reset demo, and Start for real controls.
+- Landing/README audience copy, functional labels, footer copy, 404 wording, route metadata, and social metadata were corrected.
+- `claims.json` now has 13 observable claims, including bundled sample playback and level/room-noise marks. The service-worker test setup is deterministic in a clean checkout.
 
-## Blocking gap and next steps
+## Exact verification evidence
 
-The sample cards look plausible but their playable/exported audio is generated single-frequency sine tones, not realistic spoken voice takes. This fails the one-click demo requirement for a voice-comparison product. Ship two original, offline bundled spoken WAV samples in the demo namespace and test that those assets are what Play/Export use. Then address the four minor copy/claim findings listed in review-1.md and rerun this review from a clean clone.
+- Final clean clone `/tmp/voice-comfort-accepted-clean.YwafP3`: `npm ci` (105 packages, 0 vulnerabilities), every exact `.factory/claims.json` command (13/13), `npm test` (19/19), `npm run typecheck`, `npm run lint`, and `npm run build` passed.
+- Build: 17.73 KiB JS / 6.80 KiB gzip and 9.73 KiB CSS / 3.06 KiB gzip. `dist/` was produced.
+- Accessibility: the 19-test suite includes axe checks across all routes and mobile. `/opt/fleet/lib/verify-url.sh https://voice-comfort-meter.sociobot.in/?demo=1` passed with no errors, one h1, main, `lang=en`, and no missing alts or unnamed buttons. Evidence: [live verify JSON](/work/repo/.factory/qa-artifacts/polish-1-live/verify.json).
+- Lighthouse mobile rerun on the final clean-clone production artifact: performance 93, accessibility 100, best practices 100, SEO 100. Evidence: [report](/work/repo/.factory/qa-artifacts/polish-1-local/lighthouse-demo-mobile-rerun.json).
+- Live cold checks after deployment: `/`, `/demo/`, `/privacy/`, and `/terms/` returned 200; unknown route returned 404. `/demo/desk-distance.wav` returned 200. Live `/?demo=1` had two cards, Level/Room noise marks, banner/reset/exit controls, zero console errors, and two decodable RIFF/WAVE clips (2.964 s and 2.916 s). A service-worker-controlled offline reload retained both cards.
+- Live screenshots: [landing mobile](/work/repo/.factory/qa-artifacts/polish-1-live/live-home-mobile.png), [demo mobile](/work/repo/.factory/qa-artifacts/polish-1-live/screenshot-mobile.png), [404](/work/repo/.factory/qa-artifacts/polish-1-live/live-404-desktop.png).
 
-## How to reproduce
+## Run locally
 
     npm ci
     npm test
@@ -23,4 +29,8 @@ The sample cards look plausible but their playable/exported audio is generated s
     npm run build
     npm run preview
 
-Open /demo/, press Play take, and inspect src/main.ts sampleWav() to confirm the current generated-tone behavior. The review report includes the claim commands and live verification scope.
+Open `/demo` or `/?demo=1`. The demo uses `demo:takes`; Start for real deletes it before returning home. Real recordings use `real:takes`.
+
+## Known gaps
+
+None. The two shipped demo clips are offline-generated spoken fixtures, not a voice-quality, hearing, or health assessment.
