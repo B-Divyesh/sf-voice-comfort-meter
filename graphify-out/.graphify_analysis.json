@@ -10,11 +10,14 @@
       "src_main_esc",
       "src_main_facts",
       "src_main_infopage",
+      "src_main_key",
       "src_main_landing",
       "src_main_layout",
-      "src_main_makewav",
+      "src_main_load",
+      "src_main_meta",
       "src_main_notfound",
       "src_main_pagemeta",
+      "src_main_render",
       "src_main_route",
       "src_main_savedscroll",
       "src_main_showupdate",
@@ -22,7 +25,6 @@
       "src_main_take",
       "src_main_takecard",
       "src_main_takes",
-      "src_main_towav",
       "src_main_wave",
       "src_main_workbench"
     ],
@@ -47,24 +49,6 @@
       "tsconfig_include"
     ],
     "2": [
-      "src_main_clear",
-      "src_main_db",
-      "src_main_download",
-      "src_main_key",
-      "src_main_leavedemo",
-      "src_main_load",
-      "src_main_meta",
-      "src_main_navigate",
-      "src_main_removestored",
-      "src_main_render",
-      "src_main_save",
-      "src_main_seeddemo",
-      "src_main_startrecord",
-      "src_main_statustext",
-      "src_main_takeaudio",
-      "src_main_wire"
-    ],
-    "3": [
       "axe_core_playwright",
       "eslint",
       "package_devdependencies",
@@ -80,6 +64,22 @@
       "typescript",
       "typescript_eslint",
       "vite"
+    ],
+    "3": [
+      "src_main_clear",
+      "src_main_db",
+      "src_main_download",
+      "src_main_leavedemo",
+      "src_main_makewav",
+      "src_main_navigate",
+      "src_main_removestored",
+      "src_main_save",
+      "src_main_seeddemo",
+      "src_main_startrecord",
+      "src_main_statustext",
+      "src_main_takeaudio",
+      "src_main_towav",
+      "src_main_wire"
     ],
     "4": [
       "package",
@@ -108,7 +108,6 @@
       "factory_qa_artifacts_live_qa_requests"
     ],
     "6": [
-      "test",
       "tests_app_spec",
       "tests_app_spec_clearappstorage",
       "tests_app_spec_idbkeys",
@@ -143,13 +142,13 @@
     ]
   },
   "cohesion": {
-    "0": 0.15217391304347827,
+    "0": 0.16,
     "1": 0.1111111111111111,
-    "2": 0.225,
-    "3": 0.13333333333333333,
+    "2": 0.13333333333333333,
+    "3": 0.2087912087912088,
     "4": 0.16666666666666666,
     "5": 0.2,
-    "6": 0.2857142857142857,
+    "6": 0.3333333333333333,
     "7": 0.4,
     "8": 1.0,
     "9": 1.0,
@@ -174,23 +173,23 @@
       "degree": 10
     },
     {
-      "id": "package_scripts",
-      "label": "scripts",
-      "degree": 7
-    },
-    {
       "id": "src_main_save",
       "label": "save()",
       "degree": 7
     },
     {
-      "id": "src_main_landing",
-      "label": "landing()",
-      "degree": 6
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 7
     },
     {
       "id": "src_main_apppage",
       "label": "appPage()",
+      "degree": 6
+    },
+    {
+      "id": "src_main_landing",
+      "label": "landing()",
       "degree": 6
     },
     {
@@ -211,15 +210,15 @@
   ],
   "surprises": [
     {
-      "source": "key()",
-      "target": "demo()",
+      "source": "clear()",
+      "target": "render()",
       "source_files": [
         "src/main.ts",
         "src/main.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "note": "Bridges community 0 \u2192 community 2"
+      "note": "Bridges community 3 \u2192 community 0"
     }
   ],
   "tokens": {
