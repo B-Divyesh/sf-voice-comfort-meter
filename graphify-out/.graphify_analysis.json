@@ -190,6 +190,11 @@
       "degree": 6
     },
     {
+      "id": "src_main_startrecord",
+      "label": "startRecord()",
+      "degree": 5
+    },
+    {
       "id": "src_main_apppage",
       "label": "appPage()",
       "degree": 5
@@ -197,11 +202,6 @@
     {
       "id": "src_main_layout",
       "label": "layout()",
-      "degree": 5
-    },
-    {
-      "id": "src_main_takecard",
-      "label": "takeCard()",
       "degree": 5
     },
     {
@@ -220,18 +220,18 @@
       ],
       "confidence": "INFERRED",
       "relation": "indirect_call",
-      "note": "Bridges community 8 \u2192 community 5"
+      "note": "Bridges community 5 \u2192 community 8"
     },
     {
-      "source": "render()",
-      "target": "appPage()",
+      "source": "demoBanner()",
+      "target": "demo()",
       "source_files": [
         "src/main.ts",
         "src/main.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "note": "Bridges community 5 \u2192 community 0"
+      "note": "Bridges community 0 \u2192 community 5"
     }
   ],
   "tokens": {
